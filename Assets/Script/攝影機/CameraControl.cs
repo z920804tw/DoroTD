@@ -10,6 +10,19 @@ public class CameraControl : MonoBehaviour
     CinemachineOrbitalTransposer orbitalTransposer;
     public float turnAngle;
 
+    InputMap inputActions;
+    private void Awake()
+    {
+        inputActions = new InputMap();
+    }
+    private void OnEnable()
+    {
+        inputActions.CameraInput.Enable();
+    }
+    private void OnDisable()
+    {
+        inputActions.CameraInput.Disable(); 
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +34,15 @@ public class CameraControl : MonoBehaviour
     {
         if (orbitalTransposer != null)
         {
+            
             //攝影機旋轉
-            if (Input.GetKey(KeyCode.Q))
+            if (inputActions.CameraInput.LeftRotateCam.ReadValue<float>()>0)
             {
-                orbitalTransposer.m_XAxis.Value += turnAngle*Time.deltaTime;
+                orbitalTransposer.m_XAxis.Value += turnAngle * Time.deltaTime;
             }
-            else if (Input.GetKey(KeyCode.E))
+            else if (inputActions.CameraInput.RightRotateCam.ReadValue<float>()>0)
             {
-                orbitalTransposer.m_XAxis.Value -= turnAngle*Time.deltaTime;
+                orbitalTransposer.m_XAxis.Value -= turnAngle * Time.deltaTime;
             }
         }
 
