@@ -53,6 +53,15 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f08956d-4781-45ac-9711-49a5c4d71d24"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,6 +163,17 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""770fd2d4-9244-4c39-8741-e46c14e4a204"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -213,6 +233,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         m_PlayerInput_PlayerMove = m_PlayerInput.FindAction("PlayerMove", throwIfNotFound: true);
         m_PlayerInput_MouseScroll = m_PlayerInput.FindAction("MouseScroll", throwIfNotFound: true);
         m_PlayerInput_Run = m_PlayerInput.FindAction("Run", throwIfNotFound: true);
+        m_PlayerInput_Fire = m_PlayerInput.FindAction("Fire", throwIfNotFound: true);
         // CameraInput
         m_CameraInput = asset.FindActionMap("CameraInput", throwIfNotFound: true);
         m_CameraInput_RightRotateCam = m_CameraInput.FindAction("RightRotateCam", throwIfNotFound: true);
@@ -281,6 +302,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_PlayerMove;
     private readonly InputAction m_PlayerInput_MouseScroll;
     private readonly InputAction m_PlayerInput_Run;
+    private readonly InputAction m_PlayerInput_Fire;
     public struct PlayerInputActions
     {
         private @InputMap m_Wrapper;
@@ -288,6 +310,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         public InputAction @PlayerMove => m_Wrapper.m_PlayerInput_PlayerMove;
         public InputAction @MouseScroll => m_Wrapper.m_PlayerInput_MouseScroll;
         public InputAction @Run => m_Wrapper.m_PlayerInput_Run;
+        public InputAction @Fire => m_Wrapper.m_PlayerInput_Fire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -306,6 +329,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IPlayerInputActions instance)
@@ -319,6 +345,9 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IPlayerInputActions instance)
@@ -395,6 +424,7 @@ public partial class @InputMap: IInputActionCollection2, IDisposable
         void OnPlayerMove(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
     public interface ICameraInputActions
     {

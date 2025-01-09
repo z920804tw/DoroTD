@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletSetting : MonoBehaviour
 {
     // Start is called before the first frame update
+    public float bulletDmg;
     void Start()
     {
         Destroy(gameObject, 3f);
@@ -18,6 +19,10 @@ public class BulletSetting : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemySetting>().TakeDmg(bulletDmg);
+        }
         Destroy(gameObject);
     }
 }
