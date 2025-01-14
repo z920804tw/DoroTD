@@ -11,10 +11,16 @@ public class EnemySetting : MonoBehaviour
     public float maxHp;
     public float enemyHp;
     EnemyHealth enemyHealth;
+    Vector3 lookVector;
     [Header("敵人AI相關設定")]
     public NavMeshAgent nav;
+    public LayerMask targetLayer;
+    public float attackRange;
+    public float attackDelay;
     public float moveSpeed;
+    bool inAttackRange;
     Transform target;
+    float attackTime;
 
     [Header("敵人UI設定")]
     public GameObject enemyBody;
@@ -26,28 +32,63 @@ public class EnemySetting : MonoBehaviour
 
     void Start()
     {
-        enemyHealth=GetComponent<EnemyHealth>();
+        enemyHealth = GetComponent<EnemyHealth>();
         enemyHp = maxHp;
 
         target = GameObject.Find("Player").transform;
         nav.speed = moveSpeed;
+        nav.stoppingDistance=attackRange;
         nav.updateRotation = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        enemyHpBar.transform.LookAt(Camera.main.transform.position);
-        enemyBody.transform.LookAt(Camera.main.transform.position);
-        nav.SetDestination(target.position);
+    { 
+        //角色、UI寫條旋轉
+        lookVector = Camera.main.transform.position-transform.position;
+        lookVector.y=0;
+        Quaternion targetRotation = Quaternion.LookRotation(lookVector);
+        enemyBody.transform.localRotation=targetRotation;
+        enemyHpBar.transform.rotation=targetRotation;
+
         
+
+
+        inAttackRange= Physics.CheckSphere(transform.position,attackRange,targetLayer);
+        if (!inAttackRange)
+        {
+            TrackTarget();
+            Debug.Log("追擊");
+        }
+        else
+        {
+            Attack();
+            
+        }
+
+
+    }
+    void TrackTarget()
+    {
+        nav.isStopped = false;
+        nav.SetDestination(target.position);
+    }
+    void Attack()
+    {
+        nav.isStopped = true;
+        attackTime += Time.deltaTime;
+        if (attackTime >= attackDelay)
+        {
+            attackTime = 0;
+            Debug.Log("攻擊");
+        }
     }
 
     public void TakeDmg(float dmg)
     {
         enemyHp -= dmg;
         enemyHealth.ChangeDmgColor();
-        
+
         InstantiateDmgText(dmg);
         UpdateHpBar();
         if (enemyHp <= 0)
@@ -68,5 +109,11 @@ public class EnemySetting : MonoBehaviour
 
         GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
         dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,attackRange);    
     }
 }

@@ -43,4 +43,5 @@ public class EnemyHealth : MonoBehaviour
         bodyImg.color = Color.white;
         isChange=false;
     }
+    
 }
