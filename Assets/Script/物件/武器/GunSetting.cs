@@ -62,7 +62,7 @@ public class GunSetting : MonoBehaviour
         fireAction.canceled += FireCancel;
 
         currentBullet = maxBullet;
-        playerController = GameObject.Find("PlayerComponets").GetComponent<PlayerComponet>().playerController;
+        playerController = GameObject.Find("Player").GetComponent<PlayerComponet>().playerController;
 
     }
 
