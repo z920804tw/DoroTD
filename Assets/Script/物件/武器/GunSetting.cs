@@ -92,6 +92,7 @@ public class GunSetting : MonoBehaviour
 
 
         GameObject bb = Instantiate(bullet, firePos.position, Quaternion.identity);
+        bb.transform.eulerAngles=firePos.eulerAngles;
         bb.GetComponent<BulletSetting>().bulletDmg = weaponDmg;
         bb.GetComponent<Rigidbody>().AddForce(fireDir * bulletSpeed, ForceMode.Impulse);
 

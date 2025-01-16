@@ -6,6 +6,7 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject target;
 
 
 
@@ -17,6 +18,14 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 turnPos = target.transform.position - transform.position;
+
+        Debug.DrawRay(transform.position, turnPos, Color.red);
+        Debug.DrawRay(transform.position, transform.forward*10, Color.red);
+        float angle = Vector3.SignedAngle(transform.forward, turnPos, Vector3.up);
+        Debug.Log(angle);
+
+
         if (Input.GetKey(KeyCode.R))
         {
             test2();
@@ -38,5 +47,10 @@ public class Test : MonoBehaviour
         Debug.DrawRay(transform.position, lookRot, Color.red, 5);
         Quaternion targetRotation = Quaternion.LookRotation(lookRot);
         transform.rotation = targetRotation;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("456");
     }
 }

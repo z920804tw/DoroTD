@@ -41,7 +41,7 @@ public class EnemySetting : MonoBehaviour
 
         target = GameObject.Find("Player").transform;
         nav.speed = moveSpeed;
-        nav.stoppingDistance = attackRange;
+        nav.stoppingDistance = attackRange + 0.5f;
         nav.updateRotation = false;
     }
 
@@ -54,24 +54,14 @@ public class EnemySetting : MonoBehaviour
             lookVector = Camera.main.transform.position - transform.position;
             lookVector.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(lookVector);
-            enemyBody.transform.localRotation = targetRotation;
-            enemyHpBar.transform.rotation = targetRotation;
+            transform.rotation = targetRotation;
 
-            //敵人角色方向，如果玩家在敵人左邊就朝向左，反之如果再右邊就朝向右
-            // turnPos = target.position - transform.position;
-            // Debug.Log(turnPos.x);
-            // // if (turnPos.x >= 0) //玩家在右側
-            // // {
-            // //     enemyBody.transform.localScale = new Vector3(-0.01f,
-            // //     enemyBody.transform.localScale.y, enemyBody.transform.localScale.z);
-            // //     Debug.Log("在右側");
-            // // }
-            // // else if (turnPos.x < 0) //玩家在左側
-            // // {
-            // //     enemyBody.transform.localScale = new Vector3(0.01f,
-            // //     enemyBody.transform.localScale.y, enemyBody.transform.localScale.z);
-            // //     Debug.Log("在左側");
-            // // }
+            // enemyBody.transform.localRotation = targetRotation;
+            // enemyHpBar.transform.localRotation = targetRotation;
+
+            FlipBodyX();
+
+
 
             inAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
             if (!inAttackRange)
@@ -121,6 +111,24 @@ public class EnemySetting : MonoBehaviour
         if (enemyHp <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+    void FlipBodyX()
+    {
+        turnPos = target.position - transform.position;
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Debug.DrawRay(transform.position, turnPos, Color.red); 
+        Debug.DrawRay(Camera.main.transform.position, cameraForward * 20f, Color.red);
+        // 計算敵人朝向玩家的方向
+        float angle = Vector3.SignedAngle(cameraForward, turnPos, Vector3.up);
+        Debug.Log(angle);
+        if (angle > 0)
+        {
+            enemyBody.transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f);
+        }
+        else
+        {
+            enemyBody.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
         }
     }
 
