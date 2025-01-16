@@ -116,19 +116,18 @@ public class EnemySetting : MonoBehaviour
     void FlipBodyX()
     {
         turnPos = target.position - transform.position;
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Debug.DrawRay(transform.position, turnPos, Color.red); 
-        Debug.DrawRay(Camera.main.transform.position, cameraForward * 20f, Color.red);
-        // 計算敵人朝向玩家的方向
-        float angle = Vector3.SignedAngle(cameraForward, turnPos, Vector3.up);
+        Debug.DrawRay(transform.position, turnPos, Color.red);
+        Debug.DrawRay(transform.position, transform.forward * 20f, Color.red);
+        // 計算敵敵人向前和敵人到玩家的兩個向量角度，如果再左邊，角度為正1~180，在右邊為負-1~-180
+        float angle = Vector3.SignedAngle(transform.forward, turnPos, Vector3.up);
         Debug.Log(angle);
-        if (angle > 0)
-        {
-            enemyBody.transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f);
-        }
-        else
+        if (angle > 0) //玩家在左邊
         {
             enemyBody.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+        }
+        else        //玩家在右邊
+        {
+            enemyBody.transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f);
         }
     }
 
