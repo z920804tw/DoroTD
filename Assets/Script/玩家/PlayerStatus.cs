@@ -12,7 +12,7 @@ public class PlayerStatus : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
-        isDead=false;
+        isDead = false;
     }
 
     // Update is called once per frame
@@ -26,7 +26,12 @@ public class PlayerStatus : MonoBehaviour
         currentHp -= dmg;
         if (currentHp <= 0)
         {
-            isDead=true;
+            isDead = true;
+            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); //玩家死亡會找場上帶有Enemy標籤的敵人
+            foreach (GameObject i in enemys)
+            {
+                i.GetComponent<EnemySetting>().canTrack=false;
+            }
             Debug.Log("死亡");
         }
     }

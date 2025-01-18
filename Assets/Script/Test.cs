@@ -18,17 +18,12 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 turnPos = target.transform.position - transform.position;
 
-        Debug.DrawRay(transform.position, turnPos, Color.red);
-        Debug.DrawRay(transform.position, transform.forward*10, Color.red);
-        float angle = Vector3.SignedAngle(transform.forward, turnPos, Vector3.up);
-        Debug.Log(angle);
 
 
         if (Input.GetKey(KeyCode.R))
         {
-            test2();
+            test4();
         }
     }
     void test1()
@@ -47,6 +42,22 @@ public class Test : MonoBehaviour
         Debug.DrawRay(transform.position, lookRot, Color.red, 5);
         Quaternion targetRotation = Quaternion.LookRotation(lookRot);
         transform.rotation = targetRotation;
+    }
+    void test3()
+    {
+        Vector3 turnPos = target.transform.position - transform.position;
+
+        Debug.DrawRay(transform.position, turnPos, Color.red);
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
+        float angle = Vector3.SignedAngle(transform.forward, turnPos, Vector3.up);
+        Debug.Log(angle);
+    }
+    void test4()
+    {
+        Vector3 rndSpread=Random.insideUnitSphere*0.5f+target.transform.position;
+        Vector3 rndDir= rndSpread-target.transform.position;
+        Debug.DrawRay(target.transform.position,rndDir*2f,Color.red,5f);
+
     }
 
     private void OnTriggerEnter(Collider other)

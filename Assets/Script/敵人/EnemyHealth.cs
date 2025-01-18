@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
 {
     // Start is called before the first frame update
     public SpriteRenderer bodyImg;
-    public Material bodyMat;
+    Material bodyMat;
     public float transformTime;
     bool isChange;
     void Start()

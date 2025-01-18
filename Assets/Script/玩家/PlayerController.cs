@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = cbt.ReadValue<Vector3>().x;
         float verticalInput = cbt.ReadValue<Vector3>().z;
 
+        // Debug.Log($"左右:{cbt.ReadValue<Vector3>().x},前後:{cbt.ReadValue<Vector3>().z}");
 
         moveDirection = forwardDir.transform.forward * verticalInput + forwardDir.transform.right * horizontalInput;
         moveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);

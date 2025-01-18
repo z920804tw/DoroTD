@@ -10,14 +10,14 @@ public class DmgText : MonoBehaviour
     public float lifeTime;
     public float moveSpeed;
     public TMP_Text dmgText;
-    
+
     Vector3 rndDir;
     float timer;
     void Start()
     {
-
-        rndDir = transform.up - Random.insideUnitSphere * 1f;
-        // Debug.DrawRay(transform.position,rndDir,Color.red,10);
+        Vector3 rndSpread = Random.insideUnitSphere * 1f+transform.position;
+        rndDir =rndSpread-transform.position;
+        // Debug.DrawRay(transform.position, rndDir, Color.red, 10);
     }
 
     // Update is called once per frame

@@ -11,6 +11,7 @@ public enum WeaponType
     SMG,
     Rifle,
     Shotgun,
+    Sniper,
     Melee,
 }
 public class GunSetting : MonoBehaviour
@@ -19,19 +20,24 @@ public class GunSetting : MonoBehaviour
     [Header("武器設定")]
     public WeaponType weaponType;
     public Transform firePos;
-    public GameObject bullet;
     public float fireDelay;
     public float weaponDmg;
     public bool isAuto; //單發或連發
-    [SerializeField] bool canFire;
     bool autoFire;
+    bool canFire;
+
 
 
     [Header("子彈設定")]
+    public GameObject bullet;
     public int maxBullet;
-    int currentBullet;
+    public int currentBullet;
     public float bulletSpreadRange;
     public float bulletSpeed;
+
+    public bool canPenetrate; //子彈能不能穿透
+
+    public float penCount;
 
     PlayerController playerController;
 
@@ -75,7 +81,7 @@ public class GunSetting : MonoBehaviour
 
             if (autoFire)   //如果autoFire=true，就代表目前這個武器有連發功能
             {
-                AutoFireSetting();
+                AutoFire();
             }
         }
         else            //沒瞄準時就無法開火
@@ -92,14 +98,14 @@ public class GunSetting : MonoBehaviour
 
 
         GameObject bb = Instantiate(bullet, firePos.position, Quaternion.identity);
-        bb.transform.eulerAngles=firePos.eulerAngles;
+        bb.transform.eulerAngles = firePos.eulerAngles;
         bb.GetComponent<BulletSetting>().bulletDmg = weaponDmg;
+        bb.GetComponent<BulletSetting>().canPenetrate = canPenetrate;
+        bb.GetComponent<BulletSetting>().count = penCount;
         bb.GetComponent<Rigidbody>().AddForce(fireDir * bulletSpeed, ForceMode.Impulse);
 
-        currentBullet--;
-
     }
-    void AutoFireSetting() //連發武器用
+    void AutoFire() //連發武器用
     {
         if (currentBullet > 0)
         {
@@ -108,6 +114,7 @@ public class GunSetting : MonoBehaviour
             {
                 fireTime = 0;
                 fireEvent.Invoke();
+                currentBullet--;
                 Debug.Log("開槍");
             }
         }
@@ -117,11 +124,12 @@ public class GunSetting : MonoBehaviour
         }
     }
 
-    void NoAutoFireSetting()//單發武器用
+    void NoAutoFire()//單發武器用
     {
         if (currentBullet > 0)
         {
             fireEvent.Invoke();
+            currentBullet--;
             Debug.Log("開槍");
         }
         else
@@ -130,23 +138,54 @@ public class GunSetting : MonoBehaviour
         }
     }
 
+    void NormalWeapon() //一般武器
+    {
+        if (!isAuto) //判斷是否是自動武器，如果不是就單發，如果是就將autoFire設定true;
+        {
+            NoAutoFire();
+        }
+        else
+        {
+            autoFire = true;
+        }
+    }
+    public void ShotGun()
+    {
+        if (currentBullet > 0)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                fireEvent.Invoke();
+            }
+            currentBullet--;
+        }
+        else
+        {
+            Debug.Log("沒有子彈");
+        }
+    }
     void FirePress(InputAction.CallbackContext context) //開火按鍵被按下時(只會有一次偵測)
     {
         if (canFire)
         {
-            if (!isAuto) //判斷是否是自動武器，如果不是就單發，如果是就將autoFire設定true;
+            switch (weaponType)
             {
-                NoAutoFireSetting();
-            }
-            else
-            {
-                autoFire = true;
+                case WeaponType.Pistol:
+                    NormalWeapon();
+                    break;
+                case WeaponType.Rifle:
+                    NormalWeapon();
+                    break;
+                case WeaponType.Shotgun:
+                    ShotGun();
+                    break;
             }
         }
     }
     void FireCancel(InputAction.CallbackContext context) //開火按件放開時觸發(只會偵測一次)
     {
         autoFire = false;
+        fireTime = 0;
     }
 
 }

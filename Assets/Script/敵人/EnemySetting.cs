@@ -11,6 +11,7 @@ public class EnemySetting : MonoBehaviour
     public Animator anim;
     public float maxHp;
     public float enemyHp;
+    public bool canTrack;
     EnemyHealth enemyHealth;
     Vector3 lookVector;
     Vector3 turnPos;
@@ -41,14 +42,15 @@ public class EnemySetting : MonoBehaviour
 
         target = GameObject.Find("Player").transform;
         nav.speed = moveSpeed;
-        nav.stoppingDistance = attackRange + 0.5f;
+        nav.stoppingDistance = attackRange;
         nav.updateRotation = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!target.GetComponent<PlayerComponet>().playerStatus.isDead)
+        
+        if (canTrack)
         {
             //角色、UI寫條面向攝影機
             lookVector = Camera.main.transform.position - transform.position;
@@ -67,7 +69,6 @@ public class EnemySetting : MonoBehaviour
             if (!inAttackRange)
             {
                 TrackTarget();
-                Debug.Log("追擊");
             }
             else
             {
@@ -78,7 +79,8 @@ public class EnemySetting : MonoBehaviour
         else
         {
             nav.isStopped = true;
-            Debug.Log("玩家死亡，暫停導航");
+
+            Debug.Log("暫停導航");
         }
     }
     void TrackTarget()
@@ -120,7 +122,7 @@ public class EnemySetting : MonoBehaviour
         Debug.DrawRay(transform.position, transform.forward * 20f, Color.red);
         // 計算敵敵人向前和敵人到玩家的兩個向量角度，如果再左邊，角度為正1~180，在右邊為負-1~-180
         float angle = Vector3.SignedAngle(transform.forward, turnPos, Vector3.up);
-        Debug.Log(angle);
+        // Debug.Log(angle);
         if (angle > 0) //玩家在左邊
         {
             enemyBody.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
@@ -139,10 +141,16 @@ public class EnemySetting : MonoBehaviour
     void InstantiateDmgText(float dmg)
     {
         Vector3 rndPos = dmgPos.position + Random.insideUnitSphere * 1f;
-
-
         GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
         dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player");
+        }
     }
 
     private void OnDrawGizmosSelected()
