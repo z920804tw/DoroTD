@@ -17,11 +17,5 @@ public class PlayerComponet : MonoBehaviour
     {
 
     }
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            Debug.Log("1334");
-        }
-    }
+
 }

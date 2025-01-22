@@ -1659,12 +1659,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 4
   firePos: {fileID: 221608882}
-  fireDelay: 0
+  fireDelay: 0.3
+  reloadTime: 5
   weaponDmg: 15
   isAuto: 0
   bullet: {fileID: 1638400744498477324, guid: 3a40acc72a50b914198f992934dfc5de, type: 3}
-  maxBullet: 10
-  currentBullet: 0
+  maxAmmo: 10
+  currentAmmo: 0
   bulletSpreadRange: 0.3
   bulletSpeed: 20
   canPenetrate: 0
@@ -1899,12 +1900,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   firePos: {fileID: 1441875217}
-  fireDelay: 0
+  fireDelay: 0.2
+  reloadTime: 3
   weaponDmg: 30
   isAuto: 0
   bullet: {fileID: 1638400744498477324, guid: 3a40acc72a50b914198f992934dfc5de, type: 3}
-  maxBullet: 50
-  currentBullet: 0
+  maxAmmo: 50
+  currentAmmo: 0
   bulletSpreadRange: 0.05
   bulletSpeed: 20
   canPenetrate: 1
@@ -7406,11 +7408,12 @@ MonoBehaviour:
   weaponType: 3
   firePos: {fileID: 1682291949}
   fireDelay: 0.25
+  reloadTime: 3
   weaponDmg: 15
   isAuto: 1
   bullet: {fileID: 1638400744498477324, guid: 3a40acc72a50b914198f992934dfc5de, type: 3}
-  maxBullet: 100
-  currentBullet: 0
+  maxAmmo: 100
+  currentAmmo: 0
   bulletSpreadRange: 0.05
   bulletSpeed: 20
   canPenetrate: 0

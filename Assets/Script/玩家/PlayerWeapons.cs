@@ -34,10 +34,7 @@ public class PlayerWeapons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputActions.PlayerInput.MouseScroll.ReadValue<float>() != 0)
-        {
-            SwitchWeapon();
-        }
+
     }
     void CloseAllWeapon()
     {
@@ -46,26 +43,16 @@ public class PlayerWeapons : MonoBehaviour
             i.SetActive(false);
         }
     }
-    void MouseScroll(InputAction.CallbackContext context)
+    void MouseScroll(InputAction.CallbackContext context) //當滑鼠滾輪向上120 向下 -120
     {
         mouseScrollY = context.ReadValue<float>();
+        SwitchWeapon();
     }
 
     void SwitchWeapon()
     {
         CloseAllWeapon();
-        if (mouseScrollY > 0)
-        {
-            if (currnetIndex == weapons.Count - 1)
-            {
-                currnetIndex = 0;
-            }
-            else
-            {
-                currnetIndex++;
-            }
-        }
-        else if (mouseScrollY < 0)
+        if (mouseScrollY > 0) //上一把
         {
             if (currnetIndex == 0)
             {
@@ -76,12 +63,20 @@ public class PlayerWeapons : MonoBehaviour
                 currnetIndex--;
             }
         }
+        else if (mouseScrollY < 0) //下一把
+        {
+
+            if (currnetIndex == weapons.Count - 1)
+            {
+                currnetIndex = 0;
+            }
+            else
+            {
+                currnetIndex++;
+            }
+        }
         weapons[currnetIndex].SetActive(true);
     }
 
-    // void MouseScroll(InputAction.CallbackContext context)
-    // {
-    //     Debug.Log(context.ReadValue<float>());
-    //     mouseScrollY = context.ReadValue<float>();
-    // }
+
 }

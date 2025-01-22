@@ -40,7 +40,6 @@ public class EnemyHealth : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
-        Debug.Log("完成");
         bodyMat.color = Color.white;
         isChange = false;
     }

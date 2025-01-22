@@ -21,8 +21,11 @@ public class GunSetting : MonoBehaviour
     public WeaponType weaponType;
     public Transform firePos;
     public float fireDelay;
+    public float reloadTime;
     public float weaponDmg;
     public bool isAuto; //單發或連發
+    bool isReload;
+    bool fireCold;
     bool autoFire;
     bool canFire;
 
@@ -30,8 +33,8 @@ public class GunSetting : MonoBehaviour
 
     [Header("子彈設定")]
     public GameObject bullet;
-    public int maxBullet;
-    public int currentBullet;
+    public int maxAmmo;
+    public int currentAmmo;
     public float bulletSpreadRange;
     public float bulletSpeed;
 
@@ -44,10 +47,12 @@ public class GunSetting : MonoBehaviour
     float fireTime;
 
 
+
     [Header("武器事件設定")]
     public UnityEvent fireEvent;
     InputMap inputActions;
     InputAction fireAction;
+    InputAction reloadAction;
     private void Awake()
     {
         inputActions = new InputMap();
@@ -55,19 +60,26 @@ public class GunSetting : MonoBehaviour
     private void OnEnable()
     {
         inputActions.PlayerInput.Fire.Enable();
+        inputActions.PlayerInput.Reload.Enable();
     }
     private void OnDisable()
     {
         inputActions.PlayerInput.Fire.Disable();
+        inputActions.PlayerInput.Reload.Disable();
     }
     void Start()
     {
+
+        reloadAction = inputActions.PlayerInput.Reload;
+        reloadAction.performed += ReloadPress;
 
         fireAction = inputActions.PlayerInput.Fire; //訂閱Fire按鍵事件
         fireAction.performed += FirePress;
         fireAction.canceled += FireCancel;
 
-        currentBullet = maxBullet;
+
+
+        currentAmmo = maxAmmo;
         playerController = GameObject.Find("Player").GetComponent<PlayerComponet>().playerController;
 
     }
@@ -107,14 +119,14 @@ public class GunSetting : MonoBehaviour
     }
     void AutoFire() //連發武器用
     {
-        if (currentBullet > 0)
+        if (currentAmmo > 0)
         {
             fireTime += Time.deltaTime;
             if (fireTime >= fireDelay)
             {
                 fireTime = 0;
                 fireEvent.Invoke();
-                currentBullet--;
+                currentAmmo--;
                 Debug.Log("開槍");
             }
         }
@@ -126,10 +138,10 @@ public class GunSetting : MonoBehaviour
 
     void NoAutoFire()//單發武器用
     {
-        if (currentBullet > 0)
+        if (currentAmmo > 0)
         {
             fireEvent.Invoke();
-            currentBullet--;
+            currentAmmo--;
             Debug.Log("開槍");
         }
         else
@@ -151,22 +163,27 @@ public class GunSetting : MonoBehaviour
     }
     public void ShotGun()
     {
-        if (currentBullet > 0)
+        if (currentAmmo > 0)
         {
             for (int i = 0; i < 10; i++)
             {
                 fireEvent.Invoke();
             }
-            currentBullet--;
+            currentAmmo--;
         }
         else
         {
             Debug.Log("沒有子彈");
         }
     }
+    void ResetFireCold() //武器不能一直被連續按，會有一個冷卻值。
+    {
+        fireCold = false;
+    }
+
     void FirePress(InputAction.CallbackContext context) //開火按鍵被按下時(只會有一次偵測)
     {
-        if (canFire)
+        if (canFire && !fireCold && !isReload)
         {
             switch (weaponType)
             {
@@ -180,6 +197,9 @@ public class GunSetting : MonoBehaviour
                     ShotGun();
                     break;
             }
+            fireCold = true; //槍枝冷卻功能，連發武器不會用到，只有單發武器會有用
+            Invoke("ResetFireCold", fireDelay);
+
         }
     }
     void FireCancel(InputAction.CallbackContext context) //開火按件放開時觸發(只會偵測一次)
@@ -187,5 +207,28 @@ public class GunSetting : MonoBehaviour
         autoFire = false;
         fireTime = 0;
     }
+
+    void ReloadPress(InputAction.CallbackContext context)
+    {
+        if (!isReload && currentAmmo != maxAmmo)
+        {
+            isReload = true;
+            StartCoroutine(ReloadAmmo());
+        }
+    }
+    IEnumerator ReloadAmmo()
+    {
+        float rTimer = 0;
+        while (rTimer <= reloadTime)
+        {
+            rTimer += Time.deltaTime;
+            yield return null;
+        }
+        currentAmmo=maxAmmo;
+        isReload=false;
+        Debug.Log("裝彈完成");
+        
+    }
+
 
 }
