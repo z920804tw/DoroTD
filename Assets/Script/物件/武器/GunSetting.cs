@@ -43,6 +43,7 @@ public class GunSetting : MonoBehaviour
     public float penCount;
 
     PlayerController playerController;
+    GunSwitch gunSwitchUI;
 
     float fireTime;
 
@@ -66,6 +67,13 @@ public class GunSetting : MonoBehaviour
     {
         inputActions.PlayerInput.Fire.Disable();
         inputActions.PlayerInput.Reload.Disable();
+
+        StopAllCoroutines(); //可以避免裝填彈藥到一半切武器時再切回去會卡住
+        isReload = false;
+        if (gunSwitchUI.gObj != null)
+        {
+            gunSwitchUI.gObj.reloadImg.fillAmount = 0;
+        }
     }
     void Start()
     {
@@ -81,6 +89,7 @@ public class GunSetting : MonoBehaviour
 
         currentAmmo = maxAmmo;
         playerController = GameObject.Find("Player").GetComponent<PlayerComponet>().playerController;
+        gunSwitchUI = GameObject.Find("GunList").GetComponent<GunSwitch>();
 
     }
 
@@ -222,12 +231,20 @@ public class GunSetting : MonoBehaviour
         while (rTimer <= reloadTime)
         {
             rTimer += Time.deltaTime;
+            if (gunSwitchUI != null)
+            {
+                gunSwitchUI.gObj.reloadImg.fillAmount = rTimer / reloadTime;
+            }
             yield return null;
         }
-        currentAmmo=maxAmmo;
-        isReload=false;
+        currentAmmo = maxAmmo;
+        isReload = false;
+        if (gunSwitchUI != null)
+        {
+            gunSwitchUI.gObj.reloadImg.fillAmount = 0;
+        }
         Debug.Log("裝彈完成");
-        
+
     }
 
 

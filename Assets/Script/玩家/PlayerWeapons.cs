@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerWeapons : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerWeapons : MonoBehaviour
     public int currnetIndex;
     float mouseScrollY;
     InputMap inputActions;
+    GunSwitch gunSwitchUI;
 
     private void Awake()
     {
@@ -29,6 +31,7 @@ public class PlayerWeapons : MonoBehaviour
         currnetIndex = 0;
         weapons[currnetIndex].SetActive(true);
         inputActions.PlayerInput.MouseScroll.performed += MouseScroll;
+        gunSwitchUI = GameObject.Find("GunList").GetComponent<GunSwitch>();
     }
 
     // Update is called once per frame
@@ -76,6 +79,11 @@ public class PlayerWeapons : MonoBehaviour
             }
         }
         weapons[currnetIndex].SetActive(true);
+
+        if (gunSwitchUI != null)
+        {
+            gunSwitchUI.SelectWeapon(currnetIndex);
+        }
     }
 
 

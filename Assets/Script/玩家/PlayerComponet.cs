@@ -7,6 +7,7 @@ public class PlayerComponet : MonoBehaviour
     // Start is called before the first frame update
     public PlayerController playerController;
     public PlayerStatus playerStatus;
+    public PlayerWeapons playerWeapons;
     void Start()
     {
 
