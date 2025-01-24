@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("玩家控制設定")]
     public GameObject forwardDir;
     public GameObject playerFace;
-
+ 
     public float moveSpeed;
 
     [Header("Debug")]
@@ -89,8 +89,6 @@ public class PlayerController : MonoBehaviour
         var cbt = inputAction.PlayerInput.PlayerMove;
         float horizontalInput = cbt.ReadValue<Vector3>().x;
         float verticalInput = cbt.ReadValue<Vector3>().z;
-
-        // Debug.Log($"左右:{cbt.ReadValue<Vector3>().x},前後:{cbt.ReadValue<Vector3>().z}");
 
         moveDirection = forwardDir.transform.forward * verticalInput + forwardDir.transform.right * horizontalInput;
         moveDirection = new Vector3(moveDirection.x, 0, moveDirection.z);

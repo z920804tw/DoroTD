@@ -9,6 +9,8 @@ public class PlayerComponet : MonoBehaviour
     public PlayerController playerController;
     public PlayerStatus playerStatus;
     public PlayerWeapons playerWeapons;
+
+     
     void Start()
     {
 
