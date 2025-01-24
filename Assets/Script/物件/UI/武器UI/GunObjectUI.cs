@@ -10,6 +10,8 @@ public class GunObjectUI : MonoBehaviour
     public Image backgroundImg;
     public Image reloadImg;
     public TMP_Text ammoText;
+
+
     void Start()
     {
 

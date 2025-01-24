@@ -27,15 +27,16 @@ public class Store : MonoBehaviour
     {
         // 0=步槍 1=霰彈槍
         Button btn = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        btn.interactable=false;
+        btn.interactable = false;
 
-        //UI部分
+        //UI部分 新增槍枝UI的位置跟list
         GameObject gunUIObj = Instantiate(allGunUIList[i]);
-        GunSelectUI gui = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
-        gunUIObj.transform.SetParent(gui.listParent.transform);
-        gui.weaponUIList.Add(gunUIObj);
+        gunUIObj.transform.SetParent(gunSelectUI.listParent.transform);
+        gunSelectUI.weaponUIList.Add(gunUIObj);
 
-        //物件部分
+        //物件部分 新增可以使用的槍枝進去
         GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerWeapons.weapons.Add(allGunList[i]);
     }
+
+
 }

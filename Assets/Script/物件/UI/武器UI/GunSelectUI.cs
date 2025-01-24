@@ -7,9 +7,11 @@ public class GunSelectUI : MonoBehaviour
     // Start is called before the first frame update
     public GameObject listParent;
     public List<GameObject> weaponUIList;
-    public GunObjectUI gObj;
-    GameObject currentWeapon;
+    public GunObjectUI currentgObj;
+    [SerializeField] GameObject currentWeapon;
     PlayerWeapons playerWeapons;
+    GunSetting gS;
+
 
     void Start()
     {
@@ -21,16 +23,14 @@ public class GunSelectUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentWeapon != null && gObj != null)
+        //更新當前的武器UI內容
+        if (currentWeapon != null)
         {
-            gObj.ammoText.text =
-            $"AMMO:\n{currentWeapon.GetComponent<GunSetting>().currentAmmo}/{currentWeapon.GetComponent<GunSetting>().maxAmmo}";
-
+            currentgObj.ammoText.text = $"Ammo:\n{gS.currentAmmo}/{gS.maxAmmo}";
         }
-
-
     }
 
+    //切換武器UI
     public void SelectWeaponUI(int index)
     {
         //先將當前的weaponUIList所有物件都設定沒有持有狀態(灰色且位置向下)
@@ -41,15 +41,18 @@ public class GunSelectUI : MonoBehaviour
             {
                 //設定位置
                 g.backgroundImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -60);
-                g.backgroundImg.color=new Color32(180,180,180,255);
+                g.backgroundImg.color = new Color32(180, 180, 180, 255);
+
             }
-
-            //設定目前的武器狀態啟用
-            gObj = weaponUIList[index].GetComponent<GunObjectUI>();
-            gObj.backgroundImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 65);
-            gObj.backgroundImg.color=Color.white;
-
-            currentWeapon = playerWeapons.weapons[index];
         }
+        //設定當前啟用的武器UI
+        currentgObj = weaponUIList[index].GetComponent<GunObjectUI>();
+        currentgObj.backgroundImg.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 65);
+        currentgObj.backgroundImg.color = Color.white;
+        
+
+        //玩家實際拿的武器
+        currentWeapon = playerWeapons.weapons[index];
+        gS = currentWeapon.GetComponent<GunSetting>();
     }
 }

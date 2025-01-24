@@ -23,8 +23,12 @@ public class GunSetting : MonoBehaviour
     public float fireDelay;
     public float reloadTime;
     public float weaponDmg;
+
+
+
     public bool isAuto; //單發或連發
     bool isReload;
+
     bool fireCold;
     bool autoFire;
     bool canFire;
@@ -41,12 +45,10 @@ public class GunSetting : MonoBehaviour
     public bool canPenetrate; //子彈能不能穿透
 
     public float penCount;
+    float fireTime;
 
     PlayerController playerController;
     GunSelectUI gunSelectUI;
-
-
-    float fireTime;
 
 
 
@@ -73,7 +75,7 @@ public class GunSetting : MonoBehaviour
         isReload = false;
         if (gunSelectUI != null)
         {
-            gunSelectUI.gObj.reloadImg.fillAmount = 0;
+            gunSelectUI.currentgObj.reloadImg.fillAmount = 0;
         }
 
     }
@@ -91,9 +93,7 @@ public class GunSetting : MonoBehaviour
         //物件設定
         currentAmmo = maxAmmo;
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerController;
-        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
-
-
+        gunSelectUI=GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
     // Update is called once per frame
@@ -232,13 +232,14 @@ public class GunSetting : MonoBehaviour
             rTimer += Time.deltaTime;
             if (gunSelectUI != null)
             {
-                gunSelectUI.gObj.reloadImg.fillAmount=rTimer/reloadTime;
+                gunSelectUI.currentgObj.reloadImg.fillAmount=rTimer/reloadTime;
             }
             yield return null;
         }
         currentAmmo = maxAmmo;
+        gunSelectUI.currentgObj.reloadImg.fillAmount=0;
         isReload = false;
-        gunSelectUI.gObj.reloadImg.fillAmount=0;
+
 
         Debug.Log("裝彈完成");
 

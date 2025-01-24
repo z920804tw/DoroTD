@@ -34,11 +34,7 @@ public class PlayerWeapons : MonoBehaviour
         gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 
     //當滑鼠滾輪向上120 向下 -120
     void MouseScroll(InputAction.CallbackContext context)
@@ -82,7 +78,10 @@ public class PlayerWeapons : MonoBehaviour
                 currnetIndex++;
             }
         }
+        
         weapons[currnetIndex].SetActive(true);
+
+        //更新武器UI狀態
         gunSelectUI.SelectWeaponUI(currnetIndex);
     }
     void CloseAllWeapon()
