@@ -43,7 +43,8 @@ public class GunSetting : MonoBehaviour
     public float penCount;
 
     PlayerController playerController;
-    GunSwitch gunSwitchUI;
+    GunSelectUI gunSelectUI;
+
 
     float fireTime;
 
@@ -70,14 +71,15 @@ public class GunSetting : MonoBehaviour
 
         StopAllCoroutines(); //可以避免裝填彈藥到一半切武器時再切回去會卡住
         isReload = false;
-        if (gunSwitchUI.gObj != null)
+        if (gunSelectUI != null)
         {
-            gunSwitchUI.gObj.reloadImg.fillAmount = 0;
+            gunSelectUI.gObj.reloadImg.fillAmount = 0;
         }
+
     }
     void Start()
     {
-
+        //訂閱事件
         reloadAction = inputActions.PlayerInput.Reload;
         reloadAction.performed += ReloadPress;
 
@@ -86,10 +88,11 @@ public class GunSetting : MonoBehaviour
         fireAction.canceled += FireCancel;
 
 
-
+        //物件設定
         currentAmmo = maxAmmo;
-        playerController = GameObject.Find("Player").GetComponent<PlayerComponet>().playerController;
-        gunSwitchUI = GameObject.Find("GunList").GetComponent<GunSwitch>();
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerController;
+        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
+
 
     }
 
@@ -111,8 +114,8 @@ public class GunSetting : MonoBehaviour
         }
     }
 
-
-    public void GunFire() //生子彈等等的功能
+    //生子彈等等的功能
+    public void GunFire()
     {
         Vector3 randomSpread = Random.insideUnitCircle * bulletSpreadRange;
         Vector3 fireDir = firePos.forward + randomSpread;
@@ -126,7 +129,8 @@ public class GunSetting : MonoBehaviour
         bb.GetComponent<Rigidbody>().AddForce(fireDir * bulletSpeed, ForceMode.Impulse);
 
     }
-    void AutoFire() //連發武器用
+    //連發武器用
+    void AutoFire()
     {
         if (currentAmmo > 0)
         {
@@ -144,26 +148,21 @@ public class GunSetting : MonoBehaviour
             Debug.Log("沒有彈藥");
         }
     }
-
-    void NoAutoFire()//單發武器用
-    {
-        if (currentAmmo > 0)
-        {
-            fireEvent.Invoke();
-            currentAmmo--;
-            Debug.Log("開槍");
-        }
-        else
-        {
-            Debug.Log("沒有彈藥");
-        }
-    }
-
-    void NormalWeapon() //一般武器
+    //一般武器
+    void NormalWeapon()
     {
         if (!isAuto) //判斷是否是自動武器，如果不是就單發，如果是就將autoFire設定true;
         {
-            NoAutoFire();
+            if (currentAmmo > 0)
+            {
+                fireEvent.Invoke();
+                currentAmmo--;
+                Debug.Log("開槍");
+            }
+            else
+            {
+                Debug.Log("沒有彈藥");
+            }
         }
         else
         {
@@ -231,18 +230,16 @@ public class GunSetting : MonoBehaviour
         while (rTimer <= reloadTime)
         {
             rTimer += Time.deltaTime;
-            if (gunSwitchUI != null)
+            if (gunSelectUI != null)
             {
-                gunSwitchUI.gObj.reloadImg.fillAmount = rTimer / reloadTime;
+                gunSelectUI.gObj.reloadImg.fillAmount=rTimer/reloadTime;
             }
             yield return null;
         }
         currentAmmo = maxAmmo;
         isReload = false;
-        if (gunSwitchUI != null)
-        {
-            gunSwitchUI.gObj.reloadImg.fillAmount = 0;
-        }
+        gunSelectUI.gObj.reloadImg.fillAmount=0;
+
         Debug.Log("裝彈完成");
 
     }

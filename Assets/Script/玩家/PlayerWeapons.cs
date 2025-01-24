@@ -12,7 +12,7 @@ public class PlayerWeapons : MonoBehaviour
     public int currnetIndex;
     float mouseScrollY;
     InputMap inputActions;
-    GunSwitch gunSwitchUI;
+    GunSelectUI gunSelectUI;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class PlayerWeapons : MonoBehaviour
         currnetIndex = 0;
         weapons[currnetIndex].SetActive(true);
         inputActions.PlayerInput.MouseScroll.performed += MouseScroll;
-        gunSwitchUI = GameObject.Find("GunList").GetComponent<GunSwitch>();
+        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
     // Update is called once per frame
@@ -39,23 +39,27 @@ public class PlayerWeapons : MonoBehaviour
     {
 
     }
-    void CloseAllWeapon()
-    {
-        foreach (GameObject i in weapons)
-        {
-            i.SetActive(false);
-        }
-    }
-    void MouseScroll(InputAction.CallbackContext context) //當滑鼠滾輪向上120 向下 -120
+
+    //當滑鼠滾輪向上120 向下 -120
+    void MouseScroll(InputAction.CallbackContext context)
     {
         mouseScrollY = context.ReadValue<float>();
-        SwitchWeapon();
+
+        //只有大於1把武器以上才能切換
+        if (weapons.Count > 1)
+        {
+            SwitchWeapon();
+        }
+
     }
 
+    //切換武器的功能
     void SwitchWeapon()
     {
         CloseAllWeapon();
-        if (mouseScrollY > 0) //上一把
+
+        //會根據滑鼠滾輪的滾向來檢查當前是不是在第一把武器或是最後一把
+        if (mouseScrollY > 0)
         {
             if (currnetIndex == 0)
             {
@@ -66,7 +70,7 @@ public class PlayerWeapons : MonoBehaviour
                 currnetIndex--;
             }
         }
-        else if (mouseScrollY < 0) //下一把
+        else if (mouseScrollY < 0)
         {
 
             if (currnetIndex == weapons.Count - 1)
@@ -79,12 +83,14 @@ public class PlayerWeapons : MonoBehaviour
             }
         }
         weapons[currnetIndex].SetActive(true);
-
-        if (gunSwitchUI != null)
+        gunSelectUI.SelectWeaponUI(currnetIndex);
+    }
+    void CloseAllWeapon()
+    {
+        foreach (GameObject i in weapons)
         {
-            gunSwitchUI.SelectWeapon(currnetIndex);
+            i.SetActive(false);
         }
     }
-
 
 }

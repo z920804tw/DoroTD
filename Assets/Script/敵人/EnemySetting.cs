@@ -40,7 +40,7 @@ public class EnemySetting : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         enemyHp = maxHp;
 
-        target = GameObject.Find("Player").transform;
+        target = GameObject.FindWithTag("Player").transform;
         nav.speed = moveSpeed;
         nav.stoppingDistance = attackRange;
         nav.updateRotation = false;
