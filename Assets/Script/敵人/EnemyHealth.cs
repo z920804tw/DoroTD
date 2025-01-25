@@ -6,13 +6,25 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     // Start is called before the first frame update
+    [Header("敵人設定")]
+    public float maxHp;
+    public float currentHp;
+
+
+
+    [Header("敵人物件設定")]
     public SpriteRenderer bodyImg;
-    Material bodyMat;
+    public Image hpImg;
+
+    public GameObject dmgText;
+    public Transform dmgPos;
     public float transformTime;
+    Material bodyMat;
     bool isChange;
     void Start()
     {
         bodyMat = bodyImg.material;
+        currentHp = maxHp;
     }
 
     // Update is called once per frame
@@ -20,6 +32,33 @@ public class EnemyHealth : MonoBehaviour
     {
 
     }
+    //造成傷害
+    public void TakeDmg(float dmg)
+    {
+        currentHp -= dmg;
+        ChangeDmgColor();
+
+        InstantiateDmgText(dmg);
+        UpdateHpBar();
+        if (currentHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    //更新Hp
+    void UpdateHpBar()
+    {
+        hpImg.fillAmount = currentHp / maxHp;
+    }
+    //生成傷害文字
+    void InstantiateDmgText(float dmg)
+    {
+        Vector3 rndPos = dmgPos.position + Random.insideUnitSphere * 1f;
+        GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
+        dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
+    }
+
+    //受傷時會有短暫的受傷顏色
     public void ChangeDmgColor()
     {
         if (!isChange)
@@ -28,8 +67,6 @@ public class EnemyHealth : MonoBehaviour
         }
 
     }
-
-
     IEnumerator changeColor(Color star, Color end)
     {
         float timer = 0;

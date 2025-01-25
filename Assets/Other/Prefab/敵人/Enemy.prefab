@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 4177885780775264688}
   - component: {fileID: 1184549331158951751}
   - component: {fileID: 6419230790470042775}
+  - component: {fileID: 6651618526576677336}
   m_Layer: 13
   m_Name: Enemy
   m_TagString: Enemy
@@ -444,9 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c38a1107f926934d856c960a0cdc42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 6268923009004031069}
-  maxHp: 200
-  enemyHp: 0
   canTrack: 1
   nav: {fileID: 4177885780775264688}
   targetLayer:
@@ -458,9 +456,6 @@ MonoBehaviour:
   attackDmg: 2
   enemyBody: {fileID: 2910308631718941779}
   enemyHpBar: {fileID: 817579406571576959}
-  hpImg: {fileID: 5835957882062579670}
-  dmgPos: {fileID: 7791545381333626619}
-  dmgText: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8, type: 3}
 --- !u!114 &6419230790470042775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,8 +468,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77616a5ccd6a2df4ab7096c0a79e939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 200
+  currentHp: 0
   bodyImg: {fileID: 6666316172703283762}
+  hpImg: {fileID: 5835957882062579670}
+  dmgText: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8, type: 3}
+  dmgPos: {fileID: 7791545381333626619}
   transformTime: 0.5
+--- !u!114 &6651618526576677336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7719503192008690384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2755df038130b434684eba7134130818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 6268923009004031069}
+  enemySetting: {fileID: 0}
 --- !u!1 &7939107642386265994
 GameObject:
   m_ObjectHideFlags: 0

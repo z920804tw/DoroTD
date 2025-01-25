@@ -2940,38 +2940,6 @@ LightingSettings:
   m_PVRTiledBaking: 0
   m_NumRaysToShootPerTexel: -1
   m_RespectSceneVisibilityWhenBakingGI: 0
---- !u!1 &1197815297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1197815298}
-  m_Layer: 0
-  m_Name: PlayerComponets
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1197815298
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1197815297}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1599716926}
-  m_Father: {fileID: 1432974788}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235639324
 GameObject:
   m_ObjectHideFlags: 0
@@ -4632,6 +4600,9 @@ GameObject:
   - component: {fileID: 1432974785}
   - component: {fileID: 1432974790}
   - component: {fileID: 1432974791}
+  - component: {fileID: 1432974794}
+  - component: {fileID: 1432974793}
+  - component: {fileID: 1432974792}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4727,7 +4698,6 @@ Transform:
   m_Children:
   - {fileID: 1562508754}
   - {fileID: 848389693}
-  - {fileID: 1197815298}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1432974790
@@ -4769,10 +4739,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acadf389874199f4c9fd4902ad4df72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerComponet: {fileID: 1197815297}
-  playerController: {fileID: 1599716927}
-  playerStatus: {fileID: 1599716929}
-  playerWeapons: {fileID: 1599716928}
+  playerController: {fileID: 1432974794}
+  playerStatus: {fileID: 1432974792}
+  playerWeapons: {fileID: 1432974793}
+--- !u!114 &1432974792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432974784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a16822a61d10e45a6f331c68e49a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50000
+  currentHp: 0
+  isDead: 0
+--- !u!114 &1432974793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432974784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51446648f441ac4a8d1e8b9f5571dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 614967810}
+  currnetIndex: 0
+--- !u!114 &1432974794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432974784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab90a347da0d64489bbc888021a65bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forwardDir: {fileID: 848389692}
+  playerFace: {fileID: 1562508753}
+  moveSpeed: 10
+  rb: {fileID: 1432974790}
 --- !u!1 &1441875216
 GameObject:
   m_ObjectHideFlags: 0
@@ -5559,87 +5574,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1599716925
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599716926}
-  - component: {fileID: 1599716927}
-  - component: {fileID: 1599716928}
-  - component: {fileID: 1599716929}
-  m_Layer: 0
-  m_Name: PlayerController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1599716926
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599716925}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1197815298}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1599716927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599716925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab90a347da0d64489bbc888021a65bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardDir: {fileID: 848389692}
-  playerFace: {fileID: 1562508753}
-  moveSpeed: 10
-  isAim: 0
-  rb: {fileID: 1432974790}
---- !u!114 &1599716928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599716925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d51446648f441ac4a8d1e8b9f5571dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 614967810}
-  currnetIndex: 0
---- !u!114 &1599716929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599716925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a16822a61d10e45a6f331c68e49a3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 10
-  currentHp: 0
-  isDead: 0
 --- !u!1001 &1638815683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6696,11 +6630,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7719503192008690384, guid: d36f1e0986238f844b4920f9440d76c8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

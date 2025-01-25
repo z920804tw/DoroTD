@@ -99,7 +99,7 @@ public class GunSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.isAim) //正在瞄準時，就代表可以開火
+        if (playerController.IsAim()) //正在瞄準時，就代表可以開火
         {
             canFire = true;
 

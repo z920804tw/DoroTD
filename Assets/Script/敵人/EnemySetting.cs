@@ -8,13 +8,11 @@ public class EnemySetting : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("敵人設定")]
-    public Animator anim;
-    public float maxHp;
-    public float enemyHp;
     public bool canTrack;
-    EnemyHealth enemyHealth;
     Vector3 lookVector;
     Vector3 turnPos;
+
+
     [Header("敵人AI相關設定")]
     public NavMeshAgent nav;
     public LayerMask targetLayer;
@@ -30,16 +28,9 @@ public class EnemySetting : MonoBehaviour
     [Header("敵人UI設定")]
     public GameObject enemyBody;
     public GameObject enemyHpBar;
-    public Image hpImg;
-    public Transform dmgPos;
-    public GameObject dmgText;
-
 
     void Start()
     {
-        enemyHealth = GetComponent<EnemyHealth>();
-        enemyHp = maxHp;
-
         target = GameObject.FindWithTag("Player").transform;
         nav.speed = moveSpeed;
         nav.stoppingDistance = attackRange;
@@ -49,7 +40,7 @@ public class EnemySetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         if (canTrack)
         {
             //角色、UI寫條面向攝影機
@@ -58,12 +49,7 @@ public class EnemySetting : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookVector);
             transform.rotation = targetRotation;
 
-            // enemyBody.transform.localRotation = targetRotation;
-            // enemyHpBar.transform.localRotation = targetRotation;
-
             FlipBodyX();
-
-
 
             inAttackRange = Physics.CheckSphere(transform.position, attackRange, targetLayer);
             if (!inAttackRange)
@@ -83,17 +69,18 @@ public class EnemySetting : MonoBehaviour
             Debug.Log("暫停導航");
         }
     }
+
+    public bool InAttackRange()
+    {
+        return inAttackRange;
+    }
     void TrackTarget()
     {
         nav.isStopped = false;
         nav.SetDestination(target.position);
-        anim.SetBool("Run", true);
-        anim.SetBool("Attack", false);
     }
     void Attack()
     {
-        anim.SetBool("Run", false);
-        anim.SetBool("Attack", true);
         nav.isStopped = true;
         attackTime += Time.deltaTime;
         if (attackTime >= attackDelay)
@@ -103,18 +90,7 @@ public class EnemySetting : MonoBehaviour
         }
     }
 
-    public void TakeDmg(float dmg)
-    {
-        enemyHp -= dmg;
-        enemyHealth.ChangeDmgColor();
 
-        InstantiateDmgText(dmg);
-        UpdateHpBar();
-        if (enemyHp <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
     void FlipBodyX()
     {
         turnPos = target.position - transform.position;
@@ -133,17 +109,6 @@ public class EnemySetting : MonoBehaviour
         }
     }
 
-    void UpdateHpBar()
-    {
-        hpImg.fillAmount = enemyHp / maxHp;
-    }
-
-    void InstantiateDmgText(float dmg)
-    {
-        Vector3 rndPos = dmgPos.position + Random.insideUnitSphere * 1f;
-        GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
-        dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
-    }
 
     private void OnTriggerEnter(Collider other)
     {

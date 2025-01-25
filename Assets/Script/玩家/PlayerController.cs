@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     [Header("玩家控制設定")]
     public GameObject forwardDir;
     public GameObject playerFace;
- 
+
     public float moveSpeed;
 
     [Header("Debug")]
-    public bool isAim;
+    bool isAim;
 
 
     GameObject mainCam;
@@ -111,6 +111,12 @@ public class PlayerController : MonoBehaviour
 
             // Debug.Log($"移動方向: {moveDirection}, 角度: {targetAngle}");
         }
+    }
+
+    //可以用在其他地方參考
+    public bool IsAim()
+    {
+        return isAim;
     }
 
 
