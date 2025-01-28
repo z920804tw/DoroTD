@@ -7,25 +7,26 @@ public class EnemyAnimator : MonoBehaviour
     // Start is called before the first frame update
     [Header("敵人動畫控制")]
     public Animator anim;
-    [SerializeField]EnemySetting enemySetting;
-    bool inAttackRange;
+    EnemySetting enemySetting;
 
     void Start()
     {
-        enemySetting=GetComponent<EnemySetting>();
+        enemySetting = GetComponent<EnemySetting>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-      
-        inAttackRange = enemySetting.InAttackRange();
-        EnemyAnim();
+        if (enemySetting.canTrack)
+        {
+            EnemyAnim();
+        }
     }
 
     void EnemyAnim()
     {
-        if (!inAttackRange)
+        if (!enemySetting.InAttackRange)
         {
             anim.SetBool("Run", true);
             anim.SetBool("Attack", false);

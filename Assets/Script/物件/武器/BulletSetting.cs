@@ -32,7 +32,6 @@ public class BulletSetting : MonoBehaviour
                 other.GetComponent<EnemyHealth>().TakeDmg(bulletDmg);
                 Destroy(gameObject);
             }
-
         }
         else
         {

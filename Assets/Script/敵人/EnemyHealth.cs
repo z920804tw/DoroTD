@@ -10,8 +10,6 @@ public class EnemyHealth : MonoBehaviour
     public float maxHp;
     public float currentHp;
 
-
-
     [Header("敵人物件設定")]
     public SpriteRenderer bodyImg;
     public Image hpImg;
@@ -25,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
     {
         bodyMat = bodyImg.material;
         currentHp = maxHp;
+
     }
 
     // Update is called once per frame
@@ -35,14 +34,18 @@ public class EnemyHealth : MonoBehaviour
     //造成傷害
     public void TakeDmg(float dmg)
     {
-        currentHp -= dmg;
-        ChangeDmgColor();
-
-        InstantiateDmgText(dmg);
-        UpdateHpBar();
-        if (currentHp <= 0)
+        if (currentHp > 0)
         {
-            Destroy(gameObject);
+            currentHp -= dmg;
+            ChangeDmgColor();
+
+            InstantiateDmgText(dmg);
+            UpdateHpBar();
+            if (currentHp <= 0)
+            {
+                // GameObject.Find("Cube123").GetComponent<Test>().test5();
+                Destroy(gameObject);
+            }
         }
     }
     //更新Hp
@@ -63,6 +66,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (!isChange)
         {
+
             StartCoroutine(changeColor(Color.white, new Color32(255, 110, 110, 255)));
         }
 

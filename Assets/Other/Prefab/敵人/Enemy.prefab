@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 1184549331158951751}
   - component: {fileID: 6419230790470042775}
   - component: {fileID: 6651618526576677336}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -445,13 +445,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c38a1107f926934d856c960a0cdc42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAttack: {fileID: 11400000, guid: 503e66fd5e530974fb696f38b5c91764, type: 2}
   canTrack: 1
   nav: {fileID: 4177885780775264688}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 1.5
-  attackDelay: 1
+  attackRange: 2
+  attackDelay: 1.2
   moveSpeed: 3
   attackDmg: 2
   enemyBody: {fileID: 2910308631718941779}
@@ -468,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77616a5ccd6a2df4ab7096c0a79e939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
+  maxHp: 100
   currentHp: 0
   bodyImg: {fileID: 6666316172703283762}
   hpImg: {fileID: 5835957882062579670}
@@ -488,7 +489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6268923009004031069}
-  enemySetting: {fileID: 0}
 --- !u!1 &7939107642386265994
 GameObject:
   m_ObjectHideFlags: 0

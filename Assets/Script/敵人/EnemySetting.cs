@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class EnemySetting : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("敵人設定")]
+    public EnemyAttack enemyAttack;
     public bool canTrack;
     Vector3 lookVector;
     Vector3 turnPos;
-
 
     [Header("敵人AI相關設定")]
     public NavMeshAgent nav;
@@ -40,7 +39,6 @@ public class EnemySetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (canTrack)
         {
             //角色、UI寫條面向攝影機
@@ -65,20 +63,21 @@ public class EnemySetting : MonoBehaviour
         else
         {
             nav.isStopped = true;
-
-            Debug.Log("暫停導航");
         }
     }
 
-    public bool InAttackRange()
+    public bool InAttackRange
     {
-        return inAttackRange;
+        get { return inAttackRange; }
     }
+
+    //敵人追蹤用
     void TrackTarget()
     {
         nav.isStopped = false;
         nav.SetDestination(target.position);
     }
+    //敵人攻擊用
     void Attack()
     {
         nav.isStopped = true;
@@ -86,7 +85,7 @@ public class EnemySetting : MonoBehaviour
         if (attackTime >= attackDelay)
         {
             attackTime = 0;
-            target.GetComponent<PlayerComponet>().playerStatus.TakeDmg(attackDmg);
+            enemyAttack.AttackAction(this.gameObject,target.gameObject);
         }
     }
 

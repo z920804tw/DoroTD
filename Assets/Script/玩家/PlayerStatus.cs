@@ -6,7 +6,10 @@ public class PlayerStatus : MonoBehaviour
 {
     public float maxHp;
     public float currentHp;
-    public bool isDead;
+    [SerializeField]bool isDead;
+
+
+
     // Start is called before the first frame update
 
     void Start()
@@ -26,13 +29,18 @@ public class PlayerStatus : MonoBehaviour
         currentHp -= dmg;
         if (currentHp <= 0)
         {
-            isDead = true;
             GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); //玩家死亡會找場上帶有Enemy標籤的敵人
             foreach (GameObject i in enemys)
             {
-                i.GetComponent<EnemySetting>().canTrack=false;
+                i.GetComponent<EnemySetting>().canTrack = false;
             }
+            isDead=true;
             Debug.Log("死亡");
         }
+    }
+
+    public bool IsDead
+    {
+        get { return isDead; }
     }
 }

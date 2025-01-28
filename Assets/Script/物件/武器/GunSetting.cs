@@ -99,7 +99,7 @@ public class GunSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerController.IsAim()) //正在瞄準時，就代表可以開火
+        if (playerController.IsAim) //正在瞄準時，就代表可以開火
         {
             canFire = true;
 
@@ -117,6 +117,7 @@ public class GunSetting : MonoBehaviour
     //生子彈等等的功能
     public void GunFire()
     {
+        //先生成子彈隨機位置(模擬擴散)
         Vector3 randomSpread = Random.insideUnitCircle * bulletSpreadRange;
         Vector3 fireDir = firePos.forward + randomSpread;
 
@@ -221,6 +222,7 @@ public class GunSetting : MonoBehaviour
         if (!isReload && currentAmmo != maxAmmo)
         {
             isReload = true;
+            autoFire=false;
             StartCoroutine(ReloadAmmo());
         }
     }

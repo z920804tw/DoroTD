@@ -13,6 +13,7 @@ public class PlayerWeapons : MonoBehaviour
     float mouseScrollY;
     InputMap inputActions;
     GunSelectUI gunSelectUI;
+    PlayerStatus playerStatus;
 
     private void Awake()
     {
@@ -32,9 +33,12 @@ public class PlayerWeapons : MonoBehaviour
         weapons[currnetIndex].SetActive(true);
         inputActions.PlayerInput.MouseScroll.performed += MouseScroll;
         gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
+        playerStatus=GetComponent<PlayerStatus>();
+
+
     }
 
-    
+
 
     //當滑鼠滾輪向上120 向下 -120
     void MouseScroll(InputAction.CallbackContext context)
@@ -42,7 +46,7 @@ public class PlayerWeapons : MonoBehaviour
         mouseScrollY = context.ReadValue<float>();
 
         //只有大於1把武器以上才能切換
-        if (weapons.Count > 1)
+        if (weapons.Count > 1 && !playerStatus.IsDead)
         {
             SwitchWeapon();
         }
@@ -78,7 +82,7 @@ public class PlayerWeapons : MonoBehaviour
                 currnetIndex++;
             }
         }
-        
+
         weapons[currnetIndex].SetActive(true);
 
         //更新武器UI狀態

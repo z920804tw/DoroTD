@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject target;
-
-
+    
+    [SerializeField] int score;
 
     void Start()
     {
-
+        score = 0;
     }
 
     // Update is called once per frame
@@ -20,12 +21,9 @@ public class Test : MonoBehaviour
     {
 
 
-
-        if (Input.GetKey(KeyCode.R))
-        {
-            test4();
-        }
     }
+
+
     void test1()
     {
         Vector3 rndDir1 = transform.forward - Random.insideUnitSphere * 1;
@@ -54,11 +52,19 @@ public class Test : MonoBehaviour
     }
     void test4()
     {
-        Vector3 rndSpread=Random.insideUnitSphere*0.5f+target.transform.position;
-        Vector3 rndDir= rndSpread-target.transform.position;
-        Debug.DrawRay(target.transform.position,rndDir*2f,Color.red,5f);
+        Vector3 rndSpread = Random.insideUnitSphere * 0.5f + target.transform.position;
+        Vector3 rndDir = rndSpread - target.transform.position;
+        Debug.DrawRay(target.transform.position, rndDir * 2f, Color.red, 5f);
 
     }
+
+    public void test5()
+    {
+        score += 10;
+        Debug.Log(score);
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {

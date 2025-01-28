@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("玩家控制設定")]
+    [Header("玩家設定")]
     public GameObject forwardDir;
     public GameObject playerFace;
 
@@ -15,10 +15,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Debug")]
     bool isAim;
-
-
     GameObject mainCam;
     Vector3 moveDirection;
+    PlayerStatus playerStatus;
 
 
     InputMap inputAction;
@@ -38,50 +37,48 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         mainCam = GameObject.Find("Main Camera").gameObject;
-
-
-
+        playerStatus = GetComponent<PlayerStatus>();
     }
     void Update()
     {
-        forwardDir.transform.localEulerAngles = new Vector3(0, mainCam.transform.eulerAngles.y, 0);
 
-        //瞄準模式
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (!playerStatus.IsDead)
         {
-            isAim = true;
-            //當滑鼠右鍵按住時，角色會面向滑鼠只到的位置
-            Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(mousePos, out hit, 100))
+            forwardDir.transform.localEulerAngles = new Vector3(0, mainCam.transform.eulerAngles.y, 0);
+            //瞄準模式
+            if (Input.GetKey(KeyCode.Mouse1))
             {
+                isAim = true;
+                //當滑鼠右鍵按住時，角色會面向滑鼠只到的位置
+                Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
 
-                //turnPonit=玩家在畫面打到的點  turnDir=打到的點與玩家正面的方向
-                Vector3 turnPoint = new Vector3(hit.point.x, playerFace.transform.position.y, hit.point.z);
-                Vector3 turnDir = turnPoint - playerFace.transform.position;
+                if (Physics.Raycast(mousePos, out hit, 100))
+                {
+                    //turnPonit=玩家在畫面打到的點  turnDir=打到的點與玩家正面的方向
+                    Vector3 turnPoint = new Vector3(hit.point.x, playerFace.transform.position.y, hit.point.z);
+                    Vector3 turnDir = turnPoint - playerFace.transform.position;
 
-
-
-                //平滑轉動到滑鼠位置
-                Quaternion targetRotation = Quaternion.LookRotation(turnDir);
-                playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, targetRotation, Time.deltaTime * 4);
-
-                Debug.DrawRay(playerFace.transform.position, turnDir, Color.red);
+                    //平滑轉動到滑鼠位置
+                    Quaternion targetRotation = Quaternion.LookRotation(turnDir);
+                    playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, targetRotation, Time.deltaTime * 4);
+                    Debug.DrawRay(playerFace.transform.position, turnDir, Color.red);
+                }
             }
-
+            else
+            {
+                PlayerTurnFace();
+                isAim = false;
+            }
         }
-        else
-        {
-            PlayerTurnFace();
-            isAim = false;
-        }
-
-
     }
     private void FixedUpdate()
     {
-        PlayerMove();
+        if (!playerStatus.IsDead)
+        {
+            PlayerMove();
+        }
+
     }
 
     void PlayerMove()
@@ -114,9 +111,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //可以用在其他地方參考
-    public bool IsAim()
+    public bool IsAim
     {
-        return isAim;
+        get { return isAim; }
     }
 
 
