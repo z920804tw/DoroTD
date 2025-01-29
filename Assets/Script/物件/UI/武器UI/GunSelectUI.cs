@@ -15,9 +15,8 @@ public class GunSelectUI : MonoBehaviour
 
     void Start()
     {
-        playerWeapons = GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerWeapons;
+        playerWeapons = GameObject.FindWithTag("Player").GetComponent<PlayerWeapons>();
         SelectWeaponUI(playerWeapons.currnetIndex);
-
     }
 
     // Update is called once per frame

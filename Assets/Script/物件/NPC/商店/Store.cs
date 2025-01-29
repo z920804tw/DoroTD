@@ -35,7 +35,7 @@ public class Store : MonoBehaviour
         gunSelectUI.weaponUIList.Add(gunUIObj);
 
         //物件部分 新增可以使用的槍枝進去
-        GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerWeapons.weapons.Add(allGunList[i]);
+        GameObject.FindWithTag("Player").GetComponent<PlayerWeapons>().weapons.Add(allGunList[i]);
     }
 
 

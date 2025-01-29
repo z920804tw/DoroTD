@@ -8,11 +8,8 @@ public enum WeaponType
 {
     None,
     Pistol,
-    SMG,
     Rifle,
     Shotgun,
-    Sniper,
-    Melee,
 }
 public class GunSetting : MonoBehaviour
 {
@@ -92,7 +89,7 @@ public class GunSetting : MonoBehaviour
 
         //物件設定
         currentAmmo = maxAmmo;
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerComponet>().playerController;
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         gunSelectUI=GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
