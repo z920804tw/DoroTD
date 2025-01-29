@@ -75,6 +75,11 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = preSpeed;
             }
         }
+        else
+        {
+            isAim=false;
+        }
+
     }
     private void FixedUpdate()
     {
@@ -121,10 +126,10 @@ public class PlayerController : MonoBehaviour
             // // 更新playerFace的旋轉
             // playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, targetRotation, Time.deltaTime * 3.5f);
 
-            Quaternion rotDir=Quaternion.LookRotation(moveDirection);
-            playerFace.transform.localRotation= Quaternion.Slerp(playerFace.transform.localRotation,rotDir,Time.deltaTime*3.5f);
+            Quaternion rotDir = Quaternion.LookRotation(moveDirection);
+            playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, rotDir, Time.deltaTime * 3.5f);
 
-            Debug.DrawRay(transform.position,moveDirection*2,Color.red);
+            Debug.DrawRay(transform.position, moveDirection * 2, Color.red);
 
             // Debug.Log($"移動方向: {moveDirection}, 角度: {targetAngle}");
         }

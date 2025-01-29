@@ -4405,7 +4405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a16822a61d10e45a6f331c68e49a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 100
+  maxHp: 10
   currentHp: 0
   isDead: 0
 --- !u!114 &1432974793
@@ -7024,7 +7024,7 @@ PrefabInstance:
     - target: {fileID: 7719503192008690384, guid: d36f1e0986238f844b4920f9440d76c8,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
