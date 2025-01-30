@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float aimSpeed;
     float preSpeed;
+    [Header("Rig設定")]
+    public Rig aimRig;
+    [SerializeField] float aimTime;
+
     [Header("Debug")]
     [SerializeField] bool isAim;
     Vector3 moveDirection;
@@ -39,6 +44,8 @@ public class PlayerController : MonoBehaviour
         mainCam = GameObject.Find("Main Camera").gameObject;
         playerStatus = GetComponent<PlayerStatus>();
         preSpeed = moveSpeed;
+
+        aimRig.weight = 0;
     }
     void Update()
     {
@@ -67,17 +74,24 @@ public class PlayerController : MonoBehaviour
                     playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, targetRotation, Time.deltaTime * 5);
                     Debug.DrawRay(playerFace.transform.position, turnDir, Color.red);
                 }
+
+                aimRig.weight += Time.deltaTime / aimTime;
             }
             else
             {
                 PlayerTurnFace();
                 isAim = false;
                 moveSpeed = preSpeed;
+                if (aimRig.weight > 0)
+                {
+                    aimRig.weight -= Time.deltaTime / aimTime;
+                }
+
             }
         }
         else
         {
-            isAim=false;
+            isAim = false;
         }
 
     }

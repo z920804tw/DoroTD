@@ -33,17 +33,17 @@ public class PlayerAnimtor : MonoBehaviour
             Debug.Log("玩家沒有正在跑步");
         }
 
-        //瞄準
-        isAim = anim.GetBool("Aim");
-        if (!isAim && playerController.IsAim)
-        {
-            anim.SetBool("Aim", true);
-            Debug.Log("玩家正在瞄準");
-        }
-        else if(isAim && !playerController.IsAim)
-        {
-            anim.SetBool("Aim",false);
-            Debug.Log("玩家沒有正在瞄準");
-        }
+        // //瞄準
+        // isAim = anim.GetBool("Aim");
+        // if (!isAim && playerController.IsAim)
+        // {
+        //     anim.SetBool("Aim", true);
+        //     Debug.Log("玩家正在瞄準");
+        // }
+        // else if(isAim && !playerController.IsAim)
+        // {
+        //     anim.SetBool("Aim",false);
+        //     Debug.Log("玩家沒有正在瞄準");
+        // }
     }
 }
