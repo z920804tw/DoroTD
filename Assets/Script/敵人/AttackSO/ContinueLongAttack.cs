@@ -25,7 +25,8 @@ public class ContinueLongAttack : EnemyAttack
         {
             GameObject bb = Instantiate(bullet, gameObject.transform.position, Quaternion.identity);
             Vector3 dir = target.transform.position - gameObject.transform.position;
-            dir=dir.normalized;
+            dir.y = 0;
+            dir = dir.normalized;
 
             bb.GetComponent<Rigidbody>().AddForce(dir * bulletSpeed * 10, ForceMode.Force);
             bb.GetComponent<EnemyBullet>().dmg = dmg;

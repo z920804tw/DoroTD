@@ -15,6 +15,7 @@ public class LongAttack : EnemyAttack
 
         GameObject bb= Instantiate(bullet,gameObject.transform.position,Quaternion.identity);
         Vector3 dir=target.transform.position-gameObject.transform.position;
+        dir.y=0;
         dir= dir.normalized;
 
         bb.GetComponent<Rigidbody>().AddForce(dir*bulletSpeed*15,ForceMode.Force);
