@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerAnimtor : MonoBehaviour
 {
     // Start is called before the first frame update
     public Animator anim;
-
+    public Rig aimRig;
+    [SerializeField] float aimTime;
     PlayerController playerController;
     PlayerStatus playerStatus;
     bool isMove;
@@ -33,17 +35,32 @@ public class PlayerAnimtor : MonoBehaviour
             Debug.Log("玩家沒有正在跑步");
         }
 
-        // //瞄準
-        // isAim = anim.GetBool("Aim");
-        // if (!isAim && playerController.IsAim)
-        // {
-        //     anim.SetBool("Aim", true);
-        //     Debug.Log("玩家正在瞄準");
-        // }
-        // else if(isAim && !playerController.IsAim)
-        // {
-        //     anim.SetBool("Aim",false);
-        //     Debug.Log("玩家沒有正在瞄準");
-        // }
+        //瞄準
+        if (!isAim && playerController.IsAim)
+        {
+            if (aimRig.weight < 1)
+            {
+                aimRig.weight += Time.deltaTime / aimTime;
+            }
+            else
+            {
+                isAim = true;
+                Debug.Log("玩家正在瞄準");
+            }
+
+        }
+        else if (isAim && !playerController.IsAim)
+        {
+            if (aimRig.weight > 0)
+            {
+                aimRig.weight -= Time.deltaTime / aimTime;
+            }
+            else
+            {
+                isAim = false;
+                Debug.Log("玩家沒有正在瞄準");
+            }
+
+        }
     }
 }

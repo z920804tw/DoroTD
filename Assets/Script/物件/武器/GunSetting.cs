@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder;
 
 public enum WeaponType
 {
@@ -17,13 +18,13 @@ public class GunSetting : MonoBehaviour
     [Header("武器設定")]
     public WeaponType weaponType;
     public Transform firePos;
+    public GameObject fireEffect;
     public float fireDelay;
     public float reloadTime;
     public float weaponDmg;
 
-
-
     public bool isAuto; //單發或連發
+
     bool isReload;
 
     bool fireCold;
@@ -90,7 +91,7 @@ public class GunSetting : MonoBehaviour
         //物件設定
         currentAmmo = maxAmmo;
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        gunSelectUI=GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
+        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
     // Update is called once per frame
@@ -99,7 +100,6 @@ public class GunSetting : MonoBehaviour
         if (playerController.IsAim) //正在瞄準時，就代表可以開火
         {
             canFire = true;
-
             if (autoFire)   //如果autoFire=true，就代表目前這個武器有連發功能
             {
                 AutoFire();
@@ -118,7 +118,6 @@ public class GunSetting : MonoBehaviour
         Vector3 randomSpread = Random.insideUnitCircle * bulletSpreadRange;
         Vector3 fireDir = firePos.forward + randomSpread;
 
-
         GameObject bb = Instantiate(bullet, firePos.position, Quaternion.identity);
         bb.transform.eulerAngles = firePos.eulerAngles;
         bb.GetComponent<BulletSetting>().bulletDmg = weaponDmg;
@@ -126,7 +125,24 @@ public class GunSetting : MonoBehaviour
         bb.GetComponent<BulletSetting>().count = penCount;
         bb.GetComponent<Rigidbody>().AddForce(fireDir * bulletSpeed, ForceMode.Impulse);
 
+
+        //開啟開火特效
+        if (weaponType != WeaponType.Shotgun)
+        {
+            fireEffect.SetActive(true);
+            Invoke("CloseEffect", 0.2f);
+        }
     }
+    void CloseEffect()
+    {
+        fireEffect.SetActive(false);
+    }
+    //武器冷卻
+    void ResetFireCold() 
+    {
+        fireCold = false;
+    }
+
     //連發武器用
     void AutoFire()
     {
@@ -167,6 +183,8 @@ public class GunSetting : MonoBehaviour
             autoFire = true;
         }
     }
+
+    //霰彈用
     public void ShotGun()
     {
         if (currentAmmo > 0)
@@ -176,15 +194,13 @@ public class GunSetting : MonoBehaviour
                 fireEvent.Invoke();
             }
             currentAmmo--;
+            fireEffect.SetActive(true);
+            Invoke("CloseEffect", 0.2f);
         }
         else
         {
             Debug.Log("沒有子彈");
         }
-    }
-    void ResetFireCold() //武器不能一直被連續按，會有一個冷卻值。
-    {
-        fireCold = false;
     }
 
     void FirePress(InputAction.CallbackContext context) //開火按鍵被按下時(只會有一次偵測)
@@ -205,7 +221,6 @@ public class GunSetting : MonoBehaviour
             }
             fireCold = true; //槍枝冷卻功能，連發武器不會用到，只有單發武器會有用
             Invoke("ResetFireCold", fireDelay);
-
         }
     }
     void FireCancel(InputAction.CallbackContext context) //開火按件放開時觸發(只會偵測一次)
@@ -219,7 +234,7 @@ public class GunSetting : MonoBehaviour
         if (!isReload && currentAmmo != maxAmmo)
         {
             isReload = true;
-            autoFire=false;
+            autoFire = false;
             StartCoroutine(ReloadAmmo());
         }
     }
@@ -231,17 +246,14 @@ public class GunSetting : MonoBehaviour
             rTimer += Time.deltaTime;
             if (gunSelectUI != null)
             {
-                gunSelectUI.currentgObj.reloadImg.fillAmount=rTimer/reloadTime;
+                gunSelectUI.currentgObj.reloadImg.fillAmount = rTimer / reloadTime;
             }
             yield return null;
         }
         currentAmmo = maxAmmo;
-        gunSelectUI.currentgObj.reloadImg.fillAmount=0;
+        gunSelectUI.currentgObj.reloadImg.fillAmount = 0;
         isReload = false;
-
-
         Debug.Log("裝彈完成");
-
     }
 
 
