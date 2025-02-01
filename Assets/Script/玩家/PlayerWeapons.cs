@@ -10,9 +10,10 @@ public class PlayerWeapons : MonoBehaviour
     // Start is called before the first frame update
     public List<GameObject> weapons;
     public int currnetIndex;
+    GunSelectUI gunSelectUI;
     float mouseScrollY;
     InputMap inputActions;
-    GunSelectUI gunSelectUI;
+
     PlayerStatus playerStatus;
 
     private void Awake()
@@ -31,11 +32,10 @@ public class PlayerWeapons : MonoBehaviour
     {
         currnetIndex = 0;
         weapons[currnetIndex].SetActive(true);
+        playerStatus = GetComponent<PlayerStatus>();
+        if (GameObject.FindWithTag("SceneUI") != null) gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
+
         inputActions.PlayerInput.MouseScroll.performed += MouseScroll;
-        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
-        playerStatus=GetComponent<PlayerStatus>();
-
-
     }
 
 
@@ -85,8 +85,9 @@ public class PlayerWeapons : MonoBehaviour
 
         weapons[currnetIndex].SetActive(true);
 
+
         //更新武器UI狀態
-        gunSelectUI.SelectWeaponUI(currnetIndex);
+        if (gunSelectUI != null) gunSelectUI.SelectWeaponUI(currnetIndex);
     }
     void CloseAllWeapon()
     {

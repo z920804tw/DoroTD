@@ -12,7 +12,6 @@ public class PlayerAnimtor : MonoBehaviour
     PlayerController playerController;
     PlayerStatus playerStatus;
     bool isMove;
-    bool isAim;
     void Start()
     {
         playerController = GetComponent<PlayerController>();
@@ -36,31 +35,19 @@ public class PlayerAnimtor : MonoBehaviour
         }
 
         //瞄準
-        if (!isAim && playerController.IsAim)
+        if (playerController.IsAim)
         {
             if (aimRig.weight < 1)
             {
                 aimRig.weight += Time.deltaTime / aimTime;
             }
-            else
-            {
-                isAim = true;
-                Debug.Log("玩家正在瞄準");
-            }
-
         }
-        else if (isAim && !playerController.IsAim)
+        else if (!playerController.IsAim)
         {
             if (aimRig.weight > 0)
             {
                 aimRig.weight -= Time.deltaTime / aimTime;
             }
-            else
-            {
-                isAim = false;
-                Debug.Log("玩家沒有正在瞄準");
-            }
-
         }
     }
 }

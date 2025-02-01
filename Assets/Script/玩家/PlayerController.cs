@@ -8,16 +8,19 @@ public class PlayerController : MonoBehaviour
     [Header("玩家設定")]
     public GameObject forwardDir;
     public GameObject playerFace;
+    public GameObject AimTarget;
     GameObject mainCam;
     [SerializeField] float moveSpeed;
     [SerializeField] float aimSpeed;
+    [SerializeField] LayerMask groundLayer;
     float preSpeed;
 
     [Header("Debug")]
     [SerializeField] bool isAim;
+    [SerializeField] Rigidbody rb;
     Vector3 moveDirection;
     PlayerStatus playerStatus;
-    [SerializeField] Rigidbody rb;
+    Vector3 offset = new Vector3(0, 0.5f, 0);
 
     InputMap inputAction;
 
@@ -76,6 +79,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10, ForceMode.Force);
         }
+        CheckGround();
         LimitSpeed();
     }
     //限制移動速度
@@ -88,6 +92,22 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(limitVal.x, rb.velocity.y, limitVal.z);
         }
     }
+
+    void CheckGround()
+    {
+        Ray ray = new Ray(transform.position + offset, Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 0.8f, groundLayer))
+        {
+            rb.drag = 5;
+        }
+        else
+        {
+            rb.drag = 0;
+        }
+        Debug.DrawRay(transform.position + offset, Vector3.down * 0.8f, Color.red);
+    }
+    //瞄準模式
     void AimMode()
     {
         //瞄準模式
@@ -95,11 +115,11 @@ public class PlayerController : MonoBehaviour
         {
             isAim = true;
             moveSpeed = aimSpeed;
+            AimTarget.SetActive(true);
             //當滑鼠右鍵按住時，角色會面向滑鼠只到的位置
             Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            if (Physics.Raycast(mousePos, out hit, 100))
+            if (Physics.Raycast(mousePos, out hit, 100, groundLayer))
             {
                 //turnPonit=玩家在畫面打到的點  turnDir=打到的點與玩家正面的方向
                 Vector3 turnPoint = hit.point;
@@ -110,12 +130,15 @@ public class PlayerController : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(turnDir);
                 playerFace.transform.localRotation = Quaternion.Slerp(playerFace.transform.localRotation, targetRotation, Time.deltaTime * 5);
                 Debug.DrawRay(playerFace.transform.position, turnDir, Color.red);
+
+                AimTarget.transform.position = hit.point;
             }
         }
         else
         {
             isAim = false;
             moveSpeed = preSpeed;
+            AimTarget.SetActive(false);
         }
     }
     //玩家移動時的轉向

@@ -471,6 +471,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   currentHp: 0
+  deadSmoke: {fileID: 1839119453601842812, guid: cac6629af14120f44b62775225cc0e3a,
+    type: 3}
   bodyImg: {fileID: 6666316172703283762}
   hpImg: {fileID: 5835957882062579670}
   dmgText: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8, type: 3}

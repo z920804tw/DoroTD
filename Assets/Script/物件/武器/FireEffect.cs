@@ -7,17 +7,14 @@ public class FireEffect : MonoBehaviour
 {
     // Start is called before the first frame update
     public Sprite[] fireEffectImg;
-    SpriteRenderer spriteRenderer;
+    [SerializeField]SpriteRenderer spriteRenderer;
+    
 
-    private void Awake()
+    private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    private void OnEnable()
-    {
-
         int rnd = Random.Range(0, 3);
         spriteRenderer.sprite = fireEffectImg[rnd];
+        Destroy(gameObject,0.25f);
     }
 
 

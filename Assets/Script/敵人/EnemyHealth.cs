@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [Header("敵人設定")]
     public float maxHp;
     public float currentHp;
+    public GameObject deadSmoke;
 
     [Header("敵人物件設定")]
     public SpriteRenderer bodyImg;
@@ -43,7 +44,8 @@ public class EnemyHealth : MonoBehaviour
             UpdateHpBar();
             if (currentHp <= 0)
             {
-                // GameObject.Find("Cube123").GetComponent<Test>().test5();
+                GameObject smoke=Instantiate(deadSmoke,transform.position,Quaternion.identity);
+                Destroy(smoke,1.2f);
                 Destroy(gameObject);
             }
         }

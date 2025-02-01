@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -22,9 +23,13 @@ public class GunSetting : MonoBehaviour
     public float fireDelay;
     public float reloadTime;
     public float weaponDmg;
+    public float spreadRange;
 
     public bool isAuto; //單發或連發
 
+    [Header("音效設定")]
+    public AudioSource audioSource;
+    [SerializeField] AudioClip fireClip;
     bool isReload;
 
     bool fireCold;
@@ -37,11 +42,8 @@ public class GunSetting : MonoBehaviour
     public GameObject bullet;
     public int maxAmmo;
     public int currentAmmo;
-    public float bulletSpreadRange;
     public float bulletSpeed;
-
     public bool canPenetrate; //子彈能不能穿透
-
     public float penCount;
     float fireTime;
 
@@ -91,7 +93,9 @@ public class GunSetting : MonoBehaviour
         //物件設定
         currentAmmo = maxAmmo;
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-        gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
+
+
+        if (GameObject.FindWithTag("SceneUI") != null) gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
     // Update is called once per frame
@@ -115,7 +119,7 @@ public class GunSetting : MonoBehaviour
     public void GunFire()
     {
         //先生成子彈隨機位置(模擬擴散)
-        Vector3 randomSpread = Random.insideUnitCircle * bulletSpreadRange;
+        Vector3 randomSpread = Random.insideUnitCircle * spreadRange;
         Vector3 fireDir = firePos.forward + randomSpread;
 
         GameObject bb = Instantiate(bullet, firePos.position, Quaternion.identity);
@@ -129,16 +133,16 @@ public class GunSetting : MonoBehaviour
         //開啟開火特效
         if (weaponType != WeaponType.Shotgun)
         {
-            fireEffect.SetActive(true);
-            Invoke("CloseEffect", 0.2f);
+            GameObject effect = Instantiate(fireEffect, firePos.position, Quaternion.identity);
+            effect.transform.SetParent(firePos);
+            effect.transform.forward = firePos.forward;
         }
-    }
-    void CloseEffect()
-    {
-        fireEffect.SetActive(false);
+
+        //開火音效
+        audioSource.PlayOneShot(fireClip);
     }
     //武器冷卻
-    void ResetFireCold() 
+    void ResetFireCold()
     {
         fireCold = false;
     }
@@ -194,8 +198,9 @@ public class GunSetting : MonoBehaviour
                 fireEvent.Invoke();
             }
             currentAmmo--;
-            fireEffect.SetActive(true);
-            Invoke("CloseEffect", 0.2f);
+            GameObject effect = Instantiate(fireEffect, firePos.position, Quaternion.identity);
+            effect.transform.SetParent(firePos);
+            effect.transform.forward = firePos.forward;
         }
         else
         {
@@ -251,7 +256,7 @@ public class GunSetting : MonoBehaviour
             yield return null;
         }
         currentAmmo = maxAmmo;
-        gunSelectUI.currentgObj.reloadImg.fillAmount = 0;
+        if (gunSelectUI != null) gunSelectUI.currentgObj.reloadImg.fillAmount = 0;
         isReload = false;
         Debug.Log("裝彈完成");
     }
