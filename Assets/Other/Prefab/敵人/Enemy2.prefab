@@ -57,8 +57,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7, y: 1.5, z: 1}
-  m_Center: {x: -0.06, y: 0.25, z: 0}
+  m_Size: {x: 1.7, y: 2, z: 1}
+  m_Center: {x: -0.06, y: 0.5, z: 0}
 --- !u!195 &6182534186425807105
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -124,7 +124,6 @@ MonoBehaviour:
   bodyImg: {fileID: 5510748496462088611}
   hpImg: {fileID: 3331507856392802420}
   dmgText: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8, type: 3}
-  dmgPos: {fileID: 4764049330184753496}
   transformTime: 0.5
 --- !u!114 &4337293466271534532
 MonoBehaviour:
@@ -320,37 +319,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &3538994044219834699
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4764049330184753496}
-  m_Layer: 0
-  m_Name: DmgPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4764049330184753496
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3538994044219834699}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6590588909211962870}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3918657168688855688
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +559,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2771756031109100201}
-  - {fileID: 4764049330184753496}
   m_Father: {fileID: 9027365384333187869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

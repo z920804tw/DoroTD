@@ -4620,6 +4620,7 @@ GameObject:
   - component: {fileID: 3194543422813473108}
   - component: {fileID: 4270119137755212110}
   - component: {fileID: 6075022285080879712}
+  - component: {fileID: 5538775275760142775}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -4674,9 +4675,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.0205488
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9897256, z: 0}
 --- !u!54 &6188464315367377581
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4753,8 +4754,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a16822a61d10e45a6f331c68e49a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
+  maxHp: 100
   currentHp: 0
+  dmgPrefab: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8,
+    type: 3}
   isDead: 0
 --- !u!114 &6075022285080879712
 MonoBehaviour:
@@ -4771,6 +4774,24 @@ MonoBehaviour:
   anim: {fileID: 7201177701694851464}
   aimRig: {fileID: 4321217411093612658}
   aimTime: 0.3
+--- !u!114 &5538775275760142775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798496231390599939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 1, g: 0.5478491, b: 0.16509432, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6833051296068806395
 GameObject:
   m_ObjectHideFlags: 0

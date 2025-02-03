@@ -17,6 +17,7 @@ public class DmgText : MonoBehaviour
     {
         Vector3 rndSpread = Random.insideUnitSphere * 1f+transform.position;
         rndDir =rndSpread-transform.position;
+        rndDir=rndDir.normalized;
         // Debug.DrawRay(transform.position, rndDir, Color.red, 10);
     }
 

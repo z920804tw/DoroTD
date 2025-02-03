@@ -7,6 +7,7 @@ public class SceneUIManager : MonoBehaviour
     // Start is called before the first frame update
     public GameObject playUI;
     public GunSelectUI gunSelectUI;
+    public HpBar hpBar;
     void Start()
     {
 

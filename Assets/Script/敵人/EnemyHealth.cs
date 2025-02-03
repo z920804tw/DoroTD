@@ -16,7 +16,6 @@ public class EnemyHealth : MonoBehaviour
     public Image hpImg;
 
     public GameObject dmgText;
-    public Transform dmgPos;
     public float transformTime;
     Material bodyMat;
     bool isChange;
@@ -44,8 +43,8 @@ public class EnemyHealth : MonoBehaviour
             UpdateHpBar();
             if (currentHp <= 0)
             {
-                GameObject smoke=Instantiate(deadSmoke,transform.position,Quaternion.identity);
-                Destroy(smoke,1.2f);
+                GameObject smoke = Instantiate(deadSmoke, transform.position, Quaternion.identity);
+                Destroy(smoke, 1.2f);
                 Destroy(gameObject);
             }
         }
@@ -58,7 +57,8 @@ public class EnemyHealth : MonoBehaviour
     //生成傷害文字
     void InstantiateDmgText(float dmg)
     {
-        Vector3 rndPos = dmgPos.position + Random.insideUnitSphere * 1f;
+        Vector3 offset = new Vector3(0, 2, 0);
+        Vector3 rndPos = transform.position + offset + Random.insideUnitSphere * 1f;
         GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
         dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
     }
