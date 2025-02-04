@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     public float maxHp;
     public float currentHp;
     public GameObject deadSmoke;
+    [SerializeField] float money;
 
     [Header("敵人物件設定")]
     public SpriteRenderer bodyImg;
@@ -43,8 +44,11 @@ public class EnemyHealth : MonoBehaviour
             UpdateHpBar();
             if (currentHp <= 0)
             {
+                if(GameObject.FindWithTag("SceneUI")!=null)GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().playerMoney.AddMoney(money);
+
                 GameObject smoke = Instantiate(deadSmoke, transform.position, Quaternion.identity);
                 Destroy(smoke, 1.2f);
+
                 Destroy(gameObject);
             }
         }

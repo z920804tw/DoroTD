@@ -2781,6 +2781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a983b4f6d4b8042b30b9b58896444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunInfoSO: {fileID: 11400000, guid: 361d0921742578c41add901ae1d10f26, type: 2}
   weaponType: 1
   firePos: {fileID: 7084849044775882519}
   fireEffect: {fileID: 8784523707764929920, guid: 9b609b8d61a086b4d8641a1997025138,
@@ -2788,7 +2789,7 @@ MonoBehaviour:
   fireDelay: 0.2
   reloadTime: 3
   weaponDmg: 15
-  spreadRange: 0.1
+  spreadRange: 0.05
   isAuto: 0
   audioSource: {fileID: 4615474705615572879}
   fireClip: {fileID: 8300000, guid: 1169bebda3421e844aeb0257c61f7e2f, type: 3}
@@ -4662,7 +4663,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798496231390599939}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b223ae815014df246815bb5bfb250e37, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4724,7 +4725,7 @@ MonoBehaviour:
   aimSpeed: 3
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1025
   isAim: 0
   rb: {fileID: 6188464315367377581}
 --- !u!114 &3194543422813473108
@@ -5030,6 +5031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a983b4f6d4b8042b30b9b58896444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunInfoSO: {fileID: 11400000, guid: 4801f78edbd745548a4ae20de40ced2c, type: 2}
   weaponType: 2
   firePos: {fileID: 4825148460883590462}
   fireEffect: {fileID: 8784523707764929920, guid: 9b609b8d61a086b4d8641a1997025138,
@@ -6140,6 +6142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a983b4f6d4b8042b30b9b58896444c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunInfoSO: {fileID: 11400000, guid: e8e56698e7179184e847f7ebba28d61a, type: 2}
   weaponType: 3
   firePos: {fileID: 6373749408480595904}
   fireEffect: {fileID: 8784523707764929920, guid: 9b609b8d61a086b4d8641a1997025138,

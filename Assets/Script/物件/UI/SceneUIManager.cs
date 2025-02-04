@@ -8,6 +8,7 @@ public class SceneUIManager : MonoBehaviour
     public GameObject playUI;
     public GunSelectUI gunSelectUI;
     public HpBar hpBar;
+    public PlayerMoney playerMoney;
     void Start()
     {
 

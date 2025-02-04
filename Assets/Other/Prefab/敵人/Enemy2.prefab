@@ -68,7 +68,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 406849764867005471}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -121,6 +121,7 @@ MonoBehaviour:
   currentHp: 0
   deadSmoke: {fileID: 1839119453601842812, guid: cac6629af14120f44b62775225cc0e3a,
     type: 3}
+  money: 30
   bodyImg: {fileID: 5510748496462088611}
   hpImg: {fileID: 3331507856392802420}
   dmgText: {fileID: 7988388887105368246, guid: 5e80cd662f40cf94e9d1f8c9e2e641f8, type: 3}

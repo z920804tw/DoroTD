@@ -9,14 +9,19 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] GameObject dmgPrefab;
     [SerializeField] bool isDead;
 
-
+    HpBar hpBar;
     // Start is called before the first frame update
 
     void Start()
     {
         currentHp = maxHp;
         isDead = false;
-        if (GameObject.FindWithTag("SceneUI") != null) GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar.UpdateHpInfo(currentHp, maxHp);
+        if (GameObject.FindWithTag("SceneUI") != null)
+        {
+            hpBar = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar;
+            hpBar.UpdateHpInfo(currentHp,maxHp);
+        }
+
     }
 
     // Update is called once per frame
@@ -29,7 +34,7 @@ public class PlayerStatus : MonoBehaviour
     {
         currentHp -= dmg;
         InstantiateDmgText(dmg);
-        if (GameObject.FindWithTag("SceneUI") != null) GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar.UpdateHpInfo(currentHp, maxHp);
+        if (hpBar!= null) hpBar.UpdateHpInfo(currentHp, maxHp);
 
         if (currentHp <= 0)
         {
@@ -50,10 +55,10 @@ public class PlayerStatus : MonoBehaviour
 
     void InstantiateDmgText(float dmg)
     {
-        Vector3 offset=new Vector3(0,3,0);
-        Vector3 rndPos = transform.position+offset + Random.insideUnitSphere * 1f;
+        Vector3 offset = new Vector3(0, 3, 0);
+        Vector3 rndPos = transform.position + offset + Random.insideUnitSphere * 1f;
         GameObject dmgT = Instantiate(dmgPrefab, rndPos, Quaternion.identity);
         dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
-        dmgT.GetComponent<DmgText>().dmgText.color=new Color32(255,166,0,255);
+        dmgT.GetComponent<DmgText>().dmgText.color = new Color32(255, 166, 0, 255);
     }
 }

@@ -6,17 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder;
 
-public enum WeaponType
-{
-    None,
-    Pistol,
-    Rifle,
-    Shotgun,
-}
+
 public class GunSetting : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("武器設定")]
+    public GunInfoSO gunInfoSO;
     public WeaponType weaponType;
     public Transform firePos;
     public GameObject fireEffect;
@@ -91,7 +86,7 @@ public class GunSetting : MonoBehaviour
 
 
         //物件設定
-        currentAmmo = maxAmmo;
+        InitializationGunInfo(); //初始化槍枝設定
         playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
 
 
@@ -140,6 +135,31 @@ public class GunSetting : MonoBehaviour
 
         //開火音效
         audioSource.PlayOneShot(fireClip);
+    }
+
+    void InitializationGunInfo()
+    {
+        if (gunInfoSO != null)
+        {
+            //槍枝設定
+            weaponType=gunInfoSO.weaponType;
+            fireDelay=gunInfoSO.fireDelay;
+            reloadTime=gunInfoSO.reloadTime;
+            weaponDmg=gunInfoSO.weaponDmg;
+            spreadRange=gunInfoSO.spreadRange;
+            isAuto=gunInfoSO.isAuto;
+
+            //槍枝子彈設定
+            bullet=gunInfoSO.bullet;
+            maxAmmo=gunInfoSO.maxAmmo;
+            currentAmmo=maxAmmo;
+            bulletSpeed=gunInfoSO.bulletSpeed;
+            canPenetrate=gunInfoSO.canPenetrate;
+            penCount=gunInfoSO.penCount;
+
+            //音效設定
+            fireClip=gunInfoSO.fireClip;
+        }
     }
     //武器冷卻
     void ResetFireCold()
