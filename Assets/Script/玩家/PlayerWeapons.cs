@@ -9,6 +9,7 @@ public class PlayerWeapons : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<GameObject> weapons;
+    public Transform parent;
     public int currnetIndex;
     GunSelectUI gunSelectUI;
     float mouseScrollY;

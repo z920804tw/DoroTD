@@ -33,5 +33,6 @@ public class GunInfoSO : ScriptableObject
 
     [Header("音效設定")]
     public AudioClip fireClip;
+    public AudioClip empytClip;
 
 }

@@ -22,8 +22,9 @@ MonoBehaviour:
   spreadRange: 0.1
   isAuto: 1
   bullet: {fileID: 3003590720451205530, guid: 4b6257cdfd8e2ba468cf7a0cb2b36621, type: 3}
-  maxAmmo: 100
+  maxAmmo: 50
   bulletSpeed: 20
   canPenetrate: 0
   penCount: 0
   fireClip: {fileID: 8300000, guid: 623136ed55f78ee49ae8296d592e9b08, type: 3}
+  empytClip: {fileID: 8300000, guid: a4585b88cfaa05848ab99c7ae84322e5, type: 3}

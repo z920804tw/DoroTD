@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Store : MonoBehaviour
+public class WeaponStore : MonoBehaviour
 {
 
     [SerializeField] GameObject storeUI;
+    [SerializeField] GameObject hintUI;
     [SerializeField] bool canBuy;
 
 
@@ -33,11 +35,15 @@ public class Store : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            hintUI.SetActive(true);
+            hintUI.GetComponentInChildren<TMP_Text>().text = $"按下F鍵開啟商店";
             canBuy = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
+        hintUI.SetActive(false);
+        hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
         canBuy = false;
     }
 

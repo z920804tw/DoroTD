@@ -25,6 +25,7 @@ public class GunSetting : MonoBehaviour
     [Header("音效設定")]
     public AudioSource audioSource;
     [SerializeField] AudioClip fireClip;
+    [SerializeField] AudioClip emptyClip;
     bool isReload;
 
     bool fireCold;
@@ -55,6 +56,10 @@ public class GunSetting : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputMap();
+        //物件設定
+        InitializationGunInfo(); //初始化槍枝設定
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        if (GameObject.FindWithTag("SceneUI") != null) gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
     private void OnEnable()
     {
@@ -83,14 +88,6 @@ public class GunSetting : MonoBehaviour
         fireAction = inputActions.PlayerInput.Fire; //訂閱Fire按鍵事件
         fireAction.performed += FirePress;
         fireAction.canceled += FireCancel;
-
-
-        //物件設定
-        InitializationGunInfo(); //初始化槍枝設定
-        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-
-
-        if (GameObject.FindWithTag("SceneUI") != null) gunSelectUI = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().gunSelectUI;
     }
 
     // Update is called once per frame
@@ -142,23 +139,24 @@ public class GunSetting : MonoBehaviour
         if (gunInfoSO != null)
         {
             //槍枝設定
-            weaponType=gunInfoSO.weaponType;
-            fireDelay=gunInfoSO.fireDelay;
-            reloadTime=gunInfoSO.reloadTime;
-            weaponDmg=gunInfoSO.weaponDmg;
-            spreadRange=gunInfoSO.spreadRange;
-            isAuto=gunInfoSO.isAuto;
+            weaponType = gunInfoSO.weaponType;
+            fireDelay = gunInfoSO.fireDelay;
+            reloadTime = gunInfoSO.reloadTime;
+            weaponDmg = gunInfoSO.weaponDmg;
+            spreadRange = gunInfoSO.spreadRange;
+            isAuto = gunInfoSO.isAuto;
 
             //槍枝子彈設定
-            bullet=gunInfoSO.bullet;
-            maxAmmo=gunInfoSO.maxAmmo;
-            currentAmmo=maxAmmo;
-            bulletSpeed=gunInfoSO.bulletSpeed;
-            canPenetrate=gunInfoSO.canPenetrate;
-            penCount=gunInfoSO.penCount;
+            bullet = gunInfoSO.bullet;
+            maxAmmo = gunInfoSO.maxAmmo;
+            currentAmmo = maxAmmo;
+            bulletSpeed = gunInfoSO.bulletSpeed;
+            canPenetrate = gunInfoSO.canPenetrate;
+            penCount = gunInfoSO.penCount;
 
             //音效設定
-            fireClip=gunInfoSO.fireClip;
+            fireClip = gunInfoSO.fireClip;
+            emptyClip = gunInfoSO.empytClip;
         }
     }
     //武器冷卻
@@ -183,6 +181,12 @@ public class GunSetting : MonoBehaviour
         }
         else
         {
+            fireTime += Time.deltaTime;
+            if (fireTime >= fireDelay)
+            {
+                fireTime = 0;
+                audioSource.PlayOneShot(emptyClip);
+            }
             Debug.Log("沒有彈藥");
         }
     }
@@ -199,6 +203,7 @@ public class GunSetting : MonoBehaviour
             }
             else
             {
+                audioSource.PlayOneShot(emptyClip);
                 Debug.Log("沒有彈藥");
             }
         }
@@ -224,6 +229,7 @@ public class GunSetting : MonoBehaviour
         }
         else
         {
+            audioSource.PlayOneShot(emptyClip);
             Debug.Log("沒有子彈");
         }
     }
