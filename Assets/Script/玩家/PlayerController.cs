@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float aimSpeed;
     [SerializeField] LayerMask groundLayer;
-    float preSpeed;
+    [SerializeField] float preSpeed;
 
     [Header("Debug")]
     [SerializeField] bool isAim;
@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour
     {
         mainCam = GameObject.Find("Main Camera").gameObject;
         playerStatus = GetComponent<PlayerStatus>();
+
         preSpeed = moveSpeed;
+
     }
     void Update()
     {
@@ -161,4 +163,16 @@ public class PlayerController : MonoBehaviour
     {
         get { return moveDirection; }
     }
+    public float MoveSpeed
+    {
+        get { return moveSpeed; }
+        set { moveSpeed = value; }
+    }
+    public float PreSpeed
+    {
+        get { return preSpeed; }
+        set{preSpeed=value;}
+    }
+
+
 }

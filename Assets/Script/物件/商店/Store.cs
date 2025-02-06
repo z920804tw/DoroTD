@@ -2,18 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
-public class WeaponStore : MonoBehaviour
+public class Store : MonoBehaviour
 {
-
+    // Start is called before the first frame update
     [SerializeField] GameObject storeUI;
     [SerializeField] GameObject hintUI;
     [SerializeField] bool canBuy;
-
-
-
     void Start()
     {
 
@@ -28,7 +23,7 @@ public class WeaponStore : MonoBehaviour
             {
                 storeUI.SetActive(true);
                 Debug.Log("打開商店UI");
-                canBuy=false;
+                canBuy = false;
                 hintUI.SetActive(false);
             }
         }
@@ -48,5 +43,4 @@ public class WeaponStore : MonoBehaviour
         hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
         canBuy = false;
     }
-
 }

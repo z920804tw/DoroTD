@@ -4,24 +4,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeGunAmmo : MonoBehaviour
+public class BuyGunUpgrade : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("物件設定")]
     public GunInfoSO gunInfoSO;
-    [SerializeField] Image gunImg;
-    [SerializeField] TMP_Text gunName;
-    [SerializeField] TMP_Text gunAmmoText;
+    public WeaponStoreSO weaponStoreSO;
+    [SerializeField] Image upgradeImg;
+    [SerializeField] TMP_Text titleText;
+    [SerializeField] TMP_Text contentText;
     [SerializeField] TMP_Text gunUpgradePrice;
     [Header("參數設定")]
     public float upgradeLv;
-    public int upgradeAmmo;
+    public int upgradeValue;
     public float upgradePrice;
-
-    int currentAmmo;
+    [SerializeField] float increasePrice;
+    int currentValue;
     void Start()
     {
-        InitializationGunInfo();
+        InitializationInfo();
     }
 
     // Update is called once per frame
@@ -35,22 +36,22 @@ public class UpgradeGunAmmo : MonoBehaviour
         GameObject weapon = FindGun();
         if (weapon != null && playerMoney.money >= upgradePrice)
         {
-            //增加子彈
-            weapon.GetComponent<GunSetting>().maxAmmo += upgradeAmmo;
-            currentAmmo = weapon.GetComponent<GunSetting>().maxAmmo;
+            //增加傷害
+            weaponStoreSO.BuyUpgrade(weapon,upgradeValue);
+            currentValue +=upgradeValue;
 
             //扣錢和加等級、價格
             playerMoney.AddMoney(-upgradePrice);
             upgradeLv++;
-            upgradePrice += 150;
+            upgradePrice += increasePrice;
 
             //更新UI內容
-            gunName.text = $"子彈數升級:{upgradeLv}->{upgradeLv + 1}";
-            gunAmmoText.text = $"子彈數:{currentAmmo}->{currentAmmo + upgradeAmmo}";
+            titleText.text = $"{weaponStoreSO.titleName}:{upgradeLv}->{upgradeLv + 1}";
+            contentText.text = $"{weaponStoreSO.infoName}:{currentValue}->{currentValue + upgradeValue}";
             gunUpgradePrice.text = $"價錢:{upgradePrice}";
         }
-    }
 
+    }
     GameObject FindGun()
     {
         List<GameObject> weapons = GameObject.FindWithTag("Player").GetComponent<PlayerWeapons>().weapons;
@@ -63,12 +64,12 @@ public class UpgradeGunAmmo : MonoBehaviour
         }
         return null;
     }
-    void InitializationGunInfo()
+    void InitializationInfo()
     {
-        currentAmmo = gunInfoSO.maxAmmo;
-        gunImg.sprite = gunInfoSO.gunImg;
-        gunName.text = $"子彈數升級:{upgradeLv}->{upgradeLv + 1}";
-        gunAmmoText.text = $"子彈數:{currentAmmo}->{currentAmmo + upgradeAmmo}";
+        currentValue = weaponStoreSO.GetTargetValue(gunInfoSO);
+        upgradeImg.sprite = gunInfoSO.gunImg;
+        titleText.text = $"{weaponStoreSO.titleName}:{upgradeLv}->{upgradeLv + 1}";
+        contentText.text = $"{weaponStoreSO.infoName}:{currentValue}->{currentValue + upgradeValue}";
         gunUpgradePrice.text = $"價錢:{upgradePrice}";
     }
 }

@@ -2435,11 +2435,12 @@ MonoBehaviour:
   forwardDir: {fileID: 5557983952286268718}
   playerFace: {fileID: 8044766496553456955}
   AimTarget: {fileID: 6652972962635054144}
-  moveSpeed: 5
-  aimSpeed: 3
+  moveSpeed: 3
+  aimSpeed: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1025
+  preSpeed: 0
   isAim: 0
   rb: {fileID: 1472277307222745228}
 --- !u!114 &922970568678111426

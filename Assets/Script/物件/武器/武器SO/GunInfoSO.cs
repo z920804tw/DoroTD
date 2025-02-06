@@ -20,7 +20,7 @@ public class GunInfoSO : ScriptableObject
     public WeaponType weaponType;
     public float fireDelay;
     public float reloadTime;
-    public float weaponDmg;
+    public int weaponDmg;
     public float spreadRange;
     public bool isAuto; //單發或連發
 

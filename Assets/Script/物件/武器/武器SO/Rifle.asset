@@ -18,7 +18,7 @@ MonoBehaviour:
   weaponType: 2
   fireDelay: 0.1
   reloadTime: 4
-  weaponDmg: 15
+  weaponDmg: 10
   spreadRange: 0.1
   isAuto: 1
   bullet: {fileID: 3003590720451205530, guid: 4b6257cdfd8e2ba468cf7a0cb2b36621, type: 3}
