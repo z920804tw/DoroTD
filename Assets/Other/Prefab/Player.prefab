@@ -2439,7 +2439,7 @@ MonoBehaviour:
   aimSpeed: 2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 1024
   preSpeed: 0
   isAim: 0
   rb: {fileID: 1472277307222745228}

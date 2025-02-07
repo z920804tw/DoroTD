@@ -16,12 +16,13 @@ public class BulletSetting : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        if (damageable != null)
         {
             if (canPenetrate) //判斷子彈能不能穿牆
             {
                 count--; //每擊中一個目標就-1
-                other.GetComponent<EnemyHealth>().TakeDmg(bulletDmg);
+                damageable.TakeDmg(bulletDmg);
                 if (count <= 0)
                 {
                     Destroy(gameObject);
@@ -29,7 +30,7 @@ public class BulletSetting : MonoBehaviour
             }
             else
             {
-                other.GetComponent<EnemyHealth>().TakeDmg(bulletDmg);
+                damageable.TakeDmg(bulletDmg);
                 Destroy(gameObject);
             }
         }
