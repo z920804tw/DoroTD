@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] bool canSpawn;
     [SerializeField] int spawnCount;
 
-
+    public float increaseEnemyHp;
     float timer;
     void Start()
     {
@@ -30,6 +30,7 @@ public class EnemySpawner : MonoBehaviour
                 timer = 0;
                 int rnd = Random.Range(0, enemyPrefab.Length);
                 GameObject enemy = Instantiate(enemyPrefab[rnd], spawnPos.position, Quaternion.identity);
+                enemy.GetComponent<EnemyHealth>().maxHp += increaseEnemyHp; //敵人血量會隨著回合而增加
                 enemy.GetComponent<EnemyHealth>().DeadEvevnt += ReduceCount;
                 spawnCount++;
 
@@ -46,5 +47,10 @@ public class EnemySpawner : MonoBehaviour
     {
         get { return canSpawn; }
         set { canSpawn = value; }
+    }
+    public int SpawnLimit
+    {
+        get { return spawnLimit; }
+        set { spawnLimit = value; }
     }
 }

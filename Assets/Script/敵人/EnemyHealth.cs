@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour,IDamageable
+public class EnemyHealth : MonoBehaviour, IDamageable
 {
     // Start is called before the first frame update
     [Header("敵人設定")]
@@ -47,13 +47,8 @@ public class EnemyHealth : MonoBehaviour,IDamageable
             UpdateHpBar();
             if (currentHp <= 0)
             {
-                if(GameObject.FindWithTag("SceneUI")!=null)GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().playerMoney.AddMoney(money);
-
-                GameObject smoke = Instantiate(deadSmoke, transform.position, Quaternion.identity);
-                DeadEvevnt.Invoke(); //如果該敵人死亡就會通知所有有訂閱這個敵人的.cs，然後去做該.cs裡面要做的函示
-
-                Destroy(smoke, 1.2f);
-                Destroy(gameObject);
+                if (GameObject.FindWithTag("SceneUI") != null) GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().playerMoney.AddMoney(money);
+                DestoryEnemy();
             }
         }
     }
@@ -80,6 +75,15 @@ public class EnemyHealth : MonoBehaviour,IDamageable
             StartCoroutine(changeColor(Color.white, new Color32(255, 110, 110, 255)));
         }
 
+    }
+    //用在回合結束時會自動死亡
+    public void DestoryEnemy()
+    {
+        GameObject smoke = Instantiate(deadSmoke, transform.position, Quaternion.identity);
+        DeadEvevnt.Invoke(); //如果該敵人死亡就會通知所有有訂閱這個敵人的.cs，然後去做該.cs裡面要做的函示
+
+        Destroy(smoke, 1.2f);
+        Destroy(gameObject);
     }
     IEnumerator changeColor(Color star, Color end)
     {
