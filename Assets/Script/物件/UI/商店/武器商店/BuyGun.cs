@@ -54,7 +54,7 @@ public class BuyGun : MonoBehaviour
             gunOBJ.SetActive(false);
             playerWeapons.weapons.Add(gunOBJ);
 
-            playerMoney.AddMoney(-gunInfoSO.price);
+            playerMoney.DeductMoey(gunInfoSO.price);
 
             Button btn=EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
             btn.interactable=false;

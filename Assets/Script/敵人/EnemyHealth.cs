@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +20,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public float transformTime;
     Material bodyMat;
     bool isChange;
-
-    public event Action DeadEvevnt;
     void Start()
     {
         bodyMat = bodyImg.material;
@@ -48,6 +45,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             if (currentHp <= 0)
             {
                 if (GameObject.FindWithTag("SceneUI") != null) GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().playerMoney.AddMoney(money);
+                if(GameObject.Find("GameManager")!=null) GameObject.Find("GameManager").GetComponent<GameManager>().KillCount++;
                 DestoryEnemy();
             }
         }
@@ -61,7 +59,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     void InstantiateDmgText(float dmg)
     {
         Vector3 offset = new Vector3(0, 2, 0);
-        Vector3 rndPos = transform.position + offset + UnityEngine.Random.insideUnitSphere * 1f;
+        Vector3 rndPos = transform.position + offset + Random.insideUnitSphere * 1f;
         GameObject dmgT = Instantiate(dmgText, rndPos, Quaternion.identity);
         dmgT.GetComponent<DmgText>().dmgText.text = $"-{dmg}";
     }
@@ -80,7 +78,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public void DestoryEnemy()
     {
         GameObject smoke = Instantiate(deadSmoke, transform.position, Quaternion.identity);
-        DeadEvevnt.Invoke(); //如果該敵人死亡就會通知所有有訂閱這個敵人的.cs，然後去做該.cs裡面要做的函示
+        // DeadEvevnt.Invoke(); //如果該敵人死亡就會通知所有有訂閱這個敵人的.cs，然後去做該.cs裡面要做的函示
 
         Destroy(smoke, 1.2f);
         Destroy(gameObject);

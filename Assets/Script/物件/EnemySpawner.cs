@@ -8,9 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemyPrefab;
     public Transform spawnPos;
     [SerializeField] float spawnTime;
-    [SerializeField] int spawnLimit;
     [SerializeField] bool canSpawn;
-    [SerializeField] int spawnCount;
 
     public float increaseEnemyHp;
     float timer;
@@ -22,35 +20,45 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canSpawn && spawnCount < spawnLimit)
+        if (canSpawn)
         {
             timer += Time.deltaTime;
             if (timer >= spawnTime)
             {
                 timer = 0;
-                int rnd = Random.Range(0, enemyPrefab.Length);
-                GameObject enemy = Instantiate(enemyPrefab[rnd], spawnPos.position, Quaternion.identity);
+                int rnd = Random.Range(0, 100);
+                int id;
+                if (rnd % 12 == 0)
+                {
+                    id = 2;
+                }
+                else if (rnd % 5 == 0)
+                {
+                    id = 1;
+                }
+                else
+                {
+                    id = 0;
+                }
+
+                GameObject enemy = Instantiate(enemyPrefab[id], spawnPos.position, Quaternion.identity);
                 enemy.GetComponent<EnemyHealth>().maxHp += increaseEnemyHp; //敵人血量會隨著回合而增加
-                enemy.GetComponent<EnemyHealth>().DeadEvevnt += ReduceCount;
-                spawnCount++;
+                // enemy.GetComponent<EnemyHealth>().DeadEvevnt += ReduceCount;
+                Debug.Log("生成敵人");
 
             }
         }
     }
 
-    void ReduceCount()
-    {
-        spawnCount--;
-    }
 
     public bool CanSpawn
     {
         get { return canSpawn; }
         set { canSpawn = value; }
     }
-    public int SpawnLimit
+    public float SpawnTime
     {
-        get { return spawnLimit; }
-        set { spawnLimit = value; }
+        get { return spawnTime; }
+        set { spawnTime = value; }
     }
 }

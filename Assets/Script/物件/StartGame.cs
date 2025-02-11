@@ -8,6 +8,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] GameObject hintUI;
     [SerializeField] bool canStart;
 
+
     // Update is called once per frame
     void Update()
     {
@@ -18,7 +19,7 @@ public class StartGame : MonoBehaviour
                 GameObject.Find("GameManager").GetComponent<GameManager>().StartRound();
                 canStart = false;
                 hintUI.SetActive(false);
-                gameObject.SetActive(false);
+                transform.parent.gameObject.SetActive(false);
             }
         }
     }

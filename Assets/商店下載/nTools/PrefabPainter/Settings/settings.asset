@@ -3672,8 +3672,8 @@ MonoBehaviour:
         pinFixedRotationValue: {x: 0, y: 0, z: 0}
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
-        placeEulerAngles: {x: 0, y: 90, z: 0}
-        placeScale: 0.8
+        placeEulerAngles: {x: 0, y: 135, z: 0}
+        placeScale: 0.3
         throwRadius: 1
         throwSpacing: 1
         throwHeight: 3
@@ -4305,7 +4305,7 @@ MonoBehaviour:
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
         placeEulerAngles: {x: 0, y: 60, z: 0}
-        placeScale: 0.4
+        placeScale: 0.2
         throwRadius: 1
         throwSpacing: 1
         throwHeight: 3
@@ -4937,7 +4937,7 @@ MonoBehaviour:
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
         placeEulerAngles: {x: 0, y: 15, z: 0}
-        placeScale: 0.4
+        placeScale: 0.3
         throwRadius: 1
         throwSpacing: 1
         throwHeight: 3
@@ -6169,7 +6169,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: barrel
@@ -6801,7 +6801,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: structure-metal-roof
@@ -6833,7 +6833,7 @@ MonoBehaviour:
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
         placeEulerAngles: {x: 0, y: -240, z: 0}
-        placeScale: 1
+        placeScale: 0.8
         throwRadius: 1
         throwSpacing: 1
         throwHeight: 3
@@ -7148,7 +7148,7 @@ MonoBehaviour:
         pinFixedRotationValue: {x: 0, y: 0, z: 0}
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
-        placeEulerAngles: {x: 0, y: 0, z: 0}
+        placeEulerAngles: {x: 0, y: 90, z: 0}
         placeScale: 1
         throwRadius: 1
         throwSpacing: 1
@@ -7464,7 +7464,7 @@ MonoBehaviour:
         pinFixedRotationValue: {x: 0, y: 0, z: 0}
         pinFixedScale: 0
         pinFixedScaleValue: {x: 1, y: 1, z: 1}
-        placeEulerAngles: {x: 0, y: -90, z: 0}
+        placeEulerAngles: {x: 0, y: -120, z: 0}
         placeScale: 1
         throwRadius: 1
         throwSpacing: 1

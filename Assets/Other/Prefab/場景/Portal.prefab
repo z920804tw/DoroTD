@@ -84,11 +84,11 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 7719503192008690384, guid: d36f1e0986238f844b4920f9440d76c8, type: 3}
   - {fileID: 406849764867005471, guid: 88461be61cce8e44c991e73f04161653, type: 3}
+  - {fileID: 656749385264875723, guid: 6a3c41912d084b949bf5c6d877e84b10, type: 3}
   spawnPos: {fileID: 6183212846624675870}
-  spawnTime: 5
-  spawnLimit: 5
-  canSpawn: 1
-  spawnCount: 0
+  spawnTime: 2
+  canSpawn: 0
+  increaseEnemyHp: 0
 --- !u!65 &482475896713089037
 BoxCollider:
   m_ObjectHideFlags: 0

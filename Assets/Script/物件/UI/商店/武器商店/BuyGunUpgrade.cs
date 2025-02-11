@@ -41,7 +41,7 @@ public class BuyGunUpgrade : MonoBehaviour
             currentValue +=upgradeValue;
 
             //扣錢和加等級、價格
-            playerMoney.AddMoney(-upgradePrice);
+            playerMoney.DeductMoey(upgradePrice);
             upgradeLv++;
             upgradePrice += increasePrice;
 

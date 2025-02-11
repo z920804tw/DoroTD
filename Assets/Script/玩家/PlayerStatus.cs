@@ -44,6 +44,8 @@ public class PlayerStatus : MonoBehaviour
                 i.GetComponent<EnemySetting>().canTrack = false;
             }
             isDead = true;
+
+            if(GameObject.Find("GameManager")!=null){GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();}
             Debug.Log("死亡");
         }
     }

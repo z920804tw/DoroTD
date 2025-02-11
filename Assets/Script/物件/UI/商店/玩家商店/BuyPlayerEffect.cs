@@ -41,7 +41,7 @@ public class BuyPlayerEffect : MonoBehaviour
             playerStoreEffect.BuyEffect(player, upgradeValue);
 
             //扣錢並增加數值
-            playerMoney.AddMoney(-upgradePrice);
+            playerMoney.DeductMoey(upgradePrice);
             upgradeLV++;
             upgradePrice += increasePrice;
             currentValue += upgradeValue;
