@@ -5446,6 +5446,16 @@ PrefabInstance:
       propertyPath: startRoundObj
       value: 
       objectReference: {fileID: 1680653985}
+    - target: {fileID: 8940542762422266730, guid: 63f0f87dfdf93ec4c80e50256bcae3b5,
+        type: 3}
+      propertyPath: sceneUIManager
+      value: 
+      objectReference: {fileID: 8264701163281107026}
+    - target: {fileID: 8940542762422266730, guid: 63f0f87dfdf93ec4c80e50256bcae3b5,
+        type: 3}
+      propertyPath: portalSpawnTime
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5709,6 +5719,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce14fc66503ba654f8196e1d535e2848, type: 3}
+--- !u!114 &8264701163281107026 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3723900733389327586, guid: ce14fc66503ba654f8196e1d535e2848,
+    type: 3}
+  m_PrefabInstance: {fileID: 8264701163281107025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead05c8bc647b645b554ccef20b4dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8857033068114250299
 PrefabInstance:
   m_ObjectHideFlags: 0

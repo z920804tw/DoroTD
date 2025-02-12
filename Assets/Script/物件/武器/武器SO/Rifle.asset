@@ -17,7 +17,7 @@ MonoBehaviour:
   price: 500
   weaponType: 2
   fireDelay: 0.1
-  reloadTime: 4
+  reloadTime: 2
   weaponDmg: 10
   spreadRange: 0.1
   isAuto: 1

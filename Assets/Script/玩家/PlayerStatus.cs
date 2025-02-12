@@ -14,14 +14,9 @@ public class PlayerStatus : MonoBehaviour
 
     void Start()
     {
+        hpBar=GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar;
         currentHp = maxHp;
         isDead = false;
-        if (GameObject.FindWithTag("SceneUI") != null)
-        {
-            hpBar = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar;
-            hpBar.UpdateHpInfo(currentHp,maxHp);
-        }
-
     }
 
     // Update is called once per frame
@@ -34,18 +29,20 @@ public class PlayerStatus : MonoBehaviour
     {
         currentHp -= dmg;
         InstantiateDmgText(dmg);
-        if (hpBar!= null) hpBar.UpdateHpInfo(currentHp, maxHp);
+        if (hpBar != null) hpBar.UpdateHpInfo();
 
         if (currentHp <= 0)
         {
-            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); //玩家死亡會找場上帶有Enemy標籤的敵人
+            //當玩家死亡後，會停止所有敵人的AI
+            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); 
             foreach (GameObject i in enemys)
             {
                 i.GetComponent<EnemySetting>().canTrack = false;
             }
             isDead = true;
-
-            if(GameObject.Find("GameManager")!=null){GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();}
+            
+            //玩家死亡後，會去嘗試找GameManager，如果有就觸發他的GameOver
+            if (GameObject.Find("GameManager") != null) GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();
             Debug.Log("死亡");
         }
     }

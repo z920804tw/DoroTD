@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +22,8 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     PlayerStatus playerStatus;
     Vector3 offset = new Vector3(0, 0.5f, 0);
-
     InputMap inputAction;
+
 
     private void Awake()
     {
@@ -40,7 +41,6 @@ public class PlayerController : MonoBehaviour
     {
         mainCam = GameObject.Find("Main Camera").gameObject;
         playerStatus = GetComponent<PlayerStatus>();
-
         preSpeed = moveSpeed;
 
     }
@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
     public float PreSpeed
     {
         get { return preSpeed; }
-        set{preSpeed=value;}
+        set { preSpeed = value; }
     }
 
 

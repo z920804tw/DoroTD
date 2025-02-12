@@ -552,12 +552,13 @@ MonoBehaviour:
   fireEffect: {fileID: 8784523707764929920, guid: 9b609b8d61a086b4d8641a1997025138,
     type: 3}
   fireDelay: 0.1
-  reloadTime: 3
+  reloadTime: 1.5
   weaponDmg: 15
   spreadRange: 0.1
   isAuto: 1
   audioSource: {fileID: 4820994695482931841}
   fireClip: {fileID: 8300000, guid: 623136ed55f78ee49ae8296d592e9b08, type: 3}
+  emptyClip: {fileID: 0}
   bullet: {fileID: 3003590720451205530, guid: 4b6257cdfd8e2ba468cf7a0cb2b36621, type: 3}
   maxAmmo: 100
   currentAmmo: 0

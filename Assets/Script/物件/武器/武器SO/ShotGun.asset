@@ -16,8 +16,8 @@ MonoBehaviour:
   gunName: "\u9730\u5F48\u69CD"
   price: 600
   weaponType: 3
-  fireDelay: 0.5
-  reloadTime: 5
+  fireDelay: 0.8
+  reloadTime: 3.5
   weaponDmg: 20
   spreadRange: 0.2
   isAuto: 0

@@ -11,7 +11,7 @@ public class UpgradePalyerHealth : PlayerStoreEffect
         target.GetComponent<PlayerStatus>().currentHp =target.GetComponent<PlayerStatus>().maxHp;
 
         //更新玩家血量UI狀態
-        GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar.UpdateHpInfo(target.GetComponent<PlayerStatus>().currentHp,target.GetComponent<PlayerStatus>().maxHp);
+        GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar.UpdateHpInfo();
     }
 
     public override float GetTargetValue(GameObject target)

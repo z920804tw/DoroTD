@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneUIManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SceneUIManager : MonoBehaviour
     public PlayerMoney playerMoney;
     public LevelInfo levelInfo;
     public GameOverUI gameOverUI;
+    public SettingUI settingUI;
     void Start()
     {
 
@@ -20,5 +22,11 @@ public class SceneUIManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void BackToLobby()
+    {
+        Time.timeScale=1;
+        SceneManager.LoadScene(0);
     }
 }

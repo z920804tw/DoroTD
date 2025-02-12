@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     float timer;
     void Start()
     {
-        timer = 0;
+
     }
 
     // Update is called once per frame
@@ -60,5 +60,9 @@ public class EnemySpawner : MonoBehaviour
     {
         get { return spawnTime; }
         set { spawnTime = value; }
+    }
+    public float Timer
+    {
+        set{timer=value;}
     }
 }

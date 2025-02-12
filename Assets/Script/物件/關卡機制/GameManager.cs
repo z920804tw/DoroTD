@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     LevelInfo levelInfo;
     GameOverUI gameOverUI;
 
+
     [Header("關卡參數設定")]
     public float increaseHp;
     [SerializeField] float portalSpawnTime;
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         {
             i.GetComponent<EnemySpawner>().CanSpawn = true;
             i.GetComponent<EnemySpawner>().SpawnTime = portalSpawnTime;
+            i.GetComponent<EnemySpawner>().Timer=100;
         }
     }
     //回合結束
@@ -103,6 +105,11 @@ public class GameManager : MonoBehaviour
         {
             i.GetComponent<EnemyHealth>().DestoryEnemy();
         }
+
+        //回復玩家血量
+        PlayerStatus playerStatus= GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+        playerStatus.currentHp=playerStatus.maxHp;
+        sceneUIManager.hpBar.UpdateHpInfo();
     }
 
     //遊戲結束

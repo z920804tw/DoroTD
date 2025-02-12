@@ -551,12 +551,13 @@ MonoBehaviour:
   fireEffect: {fileID: 8784523707764929920, guid: 9b609b8d61a086b4d8641a1997025138,
     type: 3}
   fireDelay: 0.5
-  reloadTime: 5
+  reloadTime: 3
   weaponDmg: 15
   spreadRange: 0.2
   isAuto: 0
   audioSource: {fileID: 7776292576351947900}
   fireClip: {fileID: 8300000, guid: 9451640e35374c14f8de8b31f5c87ff7, type: 3}
+  emptyClip: {fileID: 0}
   bullet: {fileID: 3003590720451205530, guid: 4b6257cdfd8e2ba468cf7a0cb2b36621, type: 3}
   maxAmmo: 10
   currentAmmo: 0
@@ -590,7 +591,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0
