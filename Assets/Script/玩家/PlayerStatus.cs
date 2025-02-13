@@ -11,11 +11,14 @@ public class PlayerStatus : MonoBehaviour
 
     HpBar hpBar;
     // Start is called before the first frame update
-
+    void Awake()
+    {
+        currentHp = maxHp;
+    }
     void Start()
     {
-        hpBar=GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar;
-        currentHp = maxHp;
+        hpBar = GameObject.FindWithTag("SceneUI").GetComponent<SceneUIManager>().hpBar;
+
         isDead = false;
     }
 
@@ -34,13 +37,13 @@ public class PlayerStatus : MonoBehaviour
         if (currentHp <= 0)
         {
             //當玩家死亡後，會停止所有敵人的AI
-            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); 
+            GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
             foreach (GameObject i in enemys)
             {
                 i.GetComponent<EnemySetting>().canTrack = false;
             }
             isDead = true;
-            
+
             //玩家死亡後，會去嘗試找GameManager，如果有就觸發他的GameOver
             if (GameObject.Find("GameManager") != null) GameObject.Find("GameManager").GetComponent<GameManager>().GameOver();
             Debug.Log("死亡");

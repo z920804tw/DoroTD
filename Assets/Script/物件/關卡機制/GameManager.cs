@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameStatus gameStatus;
     public SceneUIManager sceneUIManager;
     public GameObject startRoundObj;
+
+    AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
     LevelInfo levelInfo;
     GameOverUI gameOverUI;
 
@@ -24,6 +28,7 @@ public class GameManager : MonoBehaviour
     [Header("關卡參數設定")]
     public float increaseHp;
     [SerializeField] float portalSpawnTime;
+    [SerializeField] float transitionDuration;
     [Header("Debug")]
     [SerializeField] float roundTime;
     float timer;
@@ -41,6 +46,9 @@ public class GameManager : MonoBehaviour
         gameOverUI = sceneUIManager.gameOverUI;
         gameStatus = GameStatus.Break;
         enemyPortals = GameObject.FindGameObjectsWithTag("EnemyPortal");
+        audioSource = GetComponent<AudioSource>();
+
+        StartCoroutine(TransitionMusic(0, 0, 0.5f));
     }
 
     // Update is called once per frame
@@ -68,12 +76,14 @@ public class GameManager : MonoBehaviour
         levelInfo.gameObject.SetActive(true);
         gameStatus = GameStatus.Start;
 
+        //切換音效
+        StartCoroutine(TransitionMusic(1, 0, 0.5f));
 
         foreach (GameObject i in enemyPortals)
         {
             i.GetComponent<EnemySpawner>().CanSpawn = true;
             i.GetComponent<EnemySpawner>().SpawnTime = portalSpawnTime;
-            i.GetComponent<EnemySpawner>().Timer=100;
+            i.GetComponent<EnemySpawner>().Timer = 100;
         }
     }
     //回合結束
@@ -82,15 +92,17 @@ public class GameManager : MonoBehaviour
         gameStatus = GameStatus.Break;
         levelInfo.gameObject.SetActive(false);
         startRoundObj.SetActive(true);
+        //切換音效
+        StartCoroutine(TransitionMusic(0, 0, 0.5f));
 
         //增加血量
         foreach (GameObject i in enemyPortals)
         {
             i.GetComponent<EnemySpawner>().CanSpawn = false;
-            i.GetComponent<EnemySpawner>().increaseEnemyHp += increaseHp * currnetRound;
+            i.GetComponent<EnemySpawner>().increaseEnemyHp = increaseHp * currnetRound;
         }
         //判斷回合，設定每3回合會增加生成速度
-        if (currnetRound % 3 == 0 && portalSpawnTime >= 1)
+        if (currnetRound % 3 == 0 && portalSpawnTime > 2)
         {
             portalSpawnTime--;
             foreach (GameObject i in enemyPortals)
@@ -107,8 +119,8 @@ public class GameManager : MonoBehaviour
         }
 
         //回復玩家血量
-        PlayerStatus playerStatus= GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
-        playerStatus.currentHp=playerStatus.maxHp;
+        PlayerStatus playerStatus = GameObject.FindWithTag("Player").GetComponent<PlayerStatus>();
+        playerStatus.currentHp = playerStatus.maxHp;
         sceneUIManager.hpBar.UpdateHpInfo();
     }
 
@@ -137,5 +149,36 @@ public class GameManager : MonoBehaviour
     {
         get { return killCount; }
         set { killCount = value; }
+    }
+
+
+    IEnumerator TransitionMusic(int i, float start, float end)
+    {
+        float timer = 0;
+        //前次音樂退場
+        if (audioSource.clip != audioClips[i])
+        {
+            while (timer < transitionDuration)
+            {
+                timer += Time.deltaTime;
+                float t = timer / transitionDuration;
+                audioSource.volume = Mathf.Lerp(end, start, t);
+                yield return null;
+            }
+            audioSource.clip = audioClips[i];
+            audioSource.Play();
+            Debug.Log("切換完成");
+        }
+
+        //目標音樂的進場
+        timer = 0;
+        while (timer < transitionDuration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / transitionDuration;
+            audioSource.volume = Mathf.Lerp(start, end, t);
+            yield return null;
+        }
+
     }
 }

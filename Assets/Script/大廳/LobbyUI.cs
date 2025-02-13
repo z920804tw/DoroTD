@@ -24,8 +24,20 @@ public class LobbyUI : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void SelectPage(int i)
+    {
+        CloseAllPage();
+        uiPages[i].SetActive(true);
+    }
     public void ExitGame()
     {
         Application.Quit();
+    }
+    void CloseAllPage()
+    {
+        foreach (GameObject i in uiPages)
+        {
+            i.SetActive(false);
+        }
     }
 }
