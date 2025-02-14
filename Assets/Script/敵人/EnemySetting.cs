@@ -100,11 +100,14 @@ public class EnemySetting : MonoBehaviour
         // Debug.Log(angle);
         if (angle > 0) //玩家在左邊
         {
-            enemyBody.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+            // enemyBody.transform.localScale = new Vector3(scale, scale, scale);
+            enemyBody.GetComponent<SpriteRenderer>().flipX=false;
+
         }
         else        //玩家在右邊
         {
-            enemyBody.transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f);
+            // enemyBody.transform.localScale = new Vector3(-scale, scale, scale);
+            enemyBody.GetComponent<SpriteRenderer>().flipX=true;
         }
     }
 

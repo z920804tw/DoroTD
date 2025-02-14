@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,7 +17,8 @@ public class GameManager : MonoBehaviour
     public GameStatus gameStatus;
     public SceneUIManager sceneUIManager;
     public GameObject startRoundObj;
-
+    [SerializeField] List<GameObject> spawnPos;
+    public GameObject boss;
     AudioSource audioSource;
     [SerializeField] AudioClip[] audioClips;
     LevelInfo levelInfo;
@@ -76,6 +76,10 @@ public class GameManager : MonoBehaviour
         levelInfo.gameObject.SetActive(true);
         gameStatus = GameStatus.Start;
 
+        if (currnetRound % 5 == 0)
+        {
+            Invoke("SpawnBoss",10f);
+        }
         //切換音效
         StartCoroutine(TransitionMusic(1, 0, 0.5f));
 
@@ -143,6 +147,13 @@ public class GameManager : MonoBehaviour
         gameOverUI.roundText.text = $"回合數:{currnetRound}";
         gameOverUI.killCountText.text = $"擊殺數:{killCount}";
         gameOverUI.moneyCountText.text = $"金錢獲得數:{sceneUIManager.playerMoney.TotalMoney}";
+    }
+
+    void SpawnBoss()
+    {
+        int rnd= Random.Range(0,spawnPos.Count);
+        GameObject bs= Instantiate(boss,spawnPos[rnd].transform.position,Quaternion.identity);
+        bs.GetComponent<EnemyHealth>().maxHp+=300;
     }
 
     public int KillCount

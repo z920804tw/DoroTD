@@ -18,11 +18,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public GameObject dmgText;
     public float transformTime;
-    Material bodyMat;
+    // Material bodyMat;
     bool isChange;
     void Start()
     {
-        bodyMat = bodyImg.material;
+        // bodyMat = bodyImg.material;
         currentHp = maxHp;
 
     }
@@ -89,11 +89,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         isChange = true;
         while (timer < transformTime)
         {
-            bodyMat.color = Color.Lerp(star, end, timer / transformTime);
+            bodyImg.color = Color.Lerp(star, end, timer / transformTime);
             timer += Time.deltaTime;
             yield return null;
         }
-        bodyMat.color = Color.white;
+        bodyImg.color = Color.white;
         isChange = false;
     }
 
