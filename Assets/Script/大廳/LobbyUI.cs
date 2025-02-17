@@ -7,21 +7,11 @@ public class LobbyUI : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] uiPages;
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        Load load = GameObject.Find("LevelLoader").GetComponent<Load>();
+        if (load != null) load.LoadLevel(1);
     }
 
     public void SelectPage(int i)

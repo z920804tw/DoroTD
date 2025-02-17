@@ -2721,7 +2721,6 @@ GameObject:
   - component: {fileID: 7325483096951483671}
   - component: {fileID: 159713812498501837}
   - component: {fileID: 7851174323713815215}
-  - component: {fileID: 250467257683855934}
   m_Layer: 5
   m_Name: UI_GameOver
   m_TagString: Untagged
@@ -2818,22 +2817,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &250467257683855934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424221963459706789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 376bab7d5c59e2946af969b8af120774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  suvivalTimeText: {fileID: 4223660175776219168}
-  roundText: {fileID: 3542657337474625300}
-  killCountText: {fileID: 2586051554684820451}
-  moneyCountText: {fileID: 138092527564458364}
 --- !u!1 &1471914715132882735
 GameObject:
   m_ObjectHideFlags: 0
@@ -22312,7 +22295,6 @@ MonoBehaviour:
   hpBar: {fileID: 3054547350350513048}
   playerMoney: {fileID: 5865616961734814602}
   levelInfo: {fileID: 3069078402341915803}
-  gameOverUI: {fileID: 250467257683855934}
   settingUI: {fileID: 3191009227731927625}
 --- !u!1 &8676415941693216296
 GameObject:

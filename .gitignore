@@ -70,3 +70,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Other/Prefab/槍枝.meta
+Assets/商店下載/武器/Low Poly AR Weapon Pack 1/Low Poly AR Weapon Pack 1_HDRP.unitypackage.meta
+Assets/商店下載/武器/Low Poly AR Weapon Pack 1/Low Poly AR Weapon Pack 1_URP.unitypackage.meta
+Assets/商店下載/環境/Polytope Studio/Lowpoly_Environments/URP/PT_Nature_Free_URP_12.unitypackage.meta
+Assets/商店下載/環境/Polytope Studio/Lowpoly_Environments/URP/PT_Nature_Free_URP_14.unitypackage.meta
+Assets/商店下載/環境/Polytope Studio/Lowpoly_Environments/URP/PT_Nature_Free_URP_16.unitypackage.meta
+Assets/商店下載/環境/Polytope Studio/Lowpoly_Environments/URP/PT_Nature_Free_URP_17.unitypackage.meta
+ProjectSettings/Packages/com.unity.probuilder/Settings.json

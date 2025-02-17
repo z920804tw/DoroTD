@@ -17,12 +17,15 @@ public class GameManager : MonoBehaviour
     public GameStatus gameStatus;
     public SceneUIManager sceneUIManager;
     public GameObject startRoundObj;
-    [SerializeField] List<GameObject> spawnPos;
     public GameObject boss;
-    AudioSource audioSource;
+    [SerializeField] List<GameObject> spawnPos;
+    [Header("音效設定")]
     [SerializeField] AudioClip[] audioClips;
+    AudioSource audioSource;
+
+    [Header("遊戲結束UI設定")]
+    public GameOverUI gameOverUI;
     LevelInfo levelInfo;
-    GameOverUI gameOverUI;
 
 
     [Header("關卡參數設定")]
@@ -43,7 +46,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         levelInfo = sceneUIManager.levelInfo;
-        gameOverUI = sceneUIManager.gameOverUI;
         gameStatus = GameStatus.Break;
         enemyPortals = GameObject.FindGameObjectsWithTag("EnemyPortal");
         audioSource = GetComponent<AudioSource>();
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         if (currnetRound % 5 == 0)
         {
-            Invoke("SpawnBoss",10f);
+            Invoke("SpawnBoss", 10f);
         }
         //切換音效
         StartCoroutine(TransitionMusic(1, 0, 0.5f));
@@ -140,7 +142,7 @@ public class GameManager : MonoBehaviour
         //顯示結束的UI畫面  
         gameStatus = GameStatus.End;
         levelInfo.gameObject.SetActive(false);
-        gameOverUI.gameObject.SetActive(true);
+        gameOverUI.uIobj.SetActive(true);
 
         //設定內容
         gameOverUI.suvivalTimeText.text = $"存活時間:{(int)suvivalTime / 60}分{(int)suvivalTime % 3600 % 60}秒";
@@ -151,9 +153,9 @@ public class GameManager : MonoBehaviour
 
     void SpawnBoss()
     {
-        int rnd= Random.Range(0,spawnPos.Count);
-        GameObject bs= Instantiate(boss,spawnPos[rnd].transform.position,Quaternion.identity);
-        bs.GetComponent<EnemyHealth>().maxHp+=300;
+        int rnd = Random.Range(0, spawnPos.Count);
+        GameObject bs = Instantiate(boss, spawnPos[rnd].transform.position, Quaternion.identity);
+        bs.GetComponent<EnemyHealth>().maxHp += 300;
     }
 
     public int KillCount

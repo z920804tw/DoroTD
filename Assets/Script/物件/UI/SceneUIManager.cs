@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 public class SceneUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    [Header("UI元素設定")]
     public GameObject playUI;
     public GunSelectUI gunSelectUI;
     public HpBar hpBar;
     public PlayerMoney playerMoney;
     public LevelInfo levelInfo;
-    public GameOverUI gameOverUI;
     public SettingUI settingUI;
+
     void Start()
     {
 
@@ -26,7 +27,11 @@ public class SceneUIManager : MonoBehaviour
 
     public void BackToLobby()
     {
-        Time.timeScale=1;
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        Load load = GameObject.Find("LevelLoader").GetComponent<Load>();
+        if (load != null)
+        {
+            load.LoadLevel(0);
+        }
     }
 }
