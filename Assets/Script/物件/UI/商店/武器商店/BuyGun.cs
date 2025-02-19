@@ -44,6 +44,7 @@ public class BuyGun : MonoBehaviour
             //產生槍枝UI物件
             GameObject gunUi = Instantiate(gunUI, transform.position, Quaternion.identity);
             gunUi.transform.SetParent(gunSelectUI.listParent.transform);
+            gunUi.transform.localScale=new Vector3(1,1,1);
             gunSelectUI.weaponUIList.Add(gunUi);
 
             //產生實體槍枝到玩家手上
