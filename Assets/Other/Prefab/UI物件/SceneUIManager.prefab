@@ -1840,7 +1840,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3683761310733517991}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: SetGunVolume
         m_Mode: 1
@@ -11004,7 +11004,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3191009227731927625}
         m_TargetAssemblyTypeName: SettingUI, Assembly-CSharp
-        m_MethodName: CloseUI
+        m_MethodName: CloseSettingUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12654,7 +12654,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3683761310733517991}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 1
@@ -18506,7 +18506,6 @@ GameObject:
   - component: {fileID: 377158537103363542}
   - component: {fileID: 3667602609392215511}
   - component: {fileID: 7818894140728396144}
-  - component: {fileID: 3683761310733517991}
   m_Layer: 5
   m_Name: UI_AudioSetting
   m_TagString: Untagged
@@ -18604,25 +18603,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3683761310733517991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7457322938218988964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c5d8da04dcae14bb04dfc9b712a63f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: f10cdf1943c719947a62e63839d3a232, type: 2}
-  mainVolumeSlider: {fileID: 368090930243305244}
-  musicSlider: {fileID: 9125489783144674387}
-  gunSoundSlider: {fileID: 2238157754447885828}
-  mainVolumeText: {fileID: 4309332650174596888}
-  musicVolumeText: {fileID: 4820443229704484209}
-  gunVolumeText: {fileID: 1365961253999256136}
 --- !u!1 &7462982981554698433
 GameObject:
   m_ObjectHideFlags: 0
@@ -21901,7 +21881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40c10f2ca7b5aa47a70aa9026ba3095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiObj:
+  uiPages:
   - {fileID: 3079624264288614242}
   - {fileID: 7457322938218988964}
   isPause: 0
@@ -21995,7 +21975,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3683761310733517991}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
         m_MethodName: SetMainVolume
         m_Mode: 1

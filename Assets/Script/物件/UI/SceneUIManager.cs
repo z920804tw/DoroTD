@@ -12,18 +12,8 @@ public class SceneUIManager : MonoBehaviour
     public HpBar hpBar;
     public PlayerMoney playerMoney;
     public LevelInfo levelInfo;
-    public SettingUI settingUI;
 
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void BackToLobby()
     {
