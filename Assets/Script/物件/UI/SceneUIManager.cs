@@ -14,7 +14,6 @@ public class SceneUIManager : MonoBehaviour
     public LevelInfo levelInfo;
 
 
-
     public void BackToLobby()
     {
         Time.timeScale = 1;

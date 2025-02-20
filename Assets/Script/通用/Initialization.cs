@@ -16,10 +16,11 @@ public class Initialization : MonoBehaviour
             PlayerPrefs.SetFloat("MusicVolume", 0.5f);
             PlayerPrefs.SetFloat("GunVolume", 1);
             
-            // //解析度初始化
-            // PlayerPrefs.SetInt("FullScreen",1);
-            // PlayerPrefs.SetInt("ScreenResolutionX",Screen.currentResolution.width);
-            // PlayerPrefs.SetInt("ScreenResolutionY",Screen.currentResolution.height);
+            //解析度初始化
+            PlayerPrefs.SetInt("FullScreen",1);
+            PlayerPrefs.SetInt("ScreenResolutionX",Screen.currentResolution.width);
+            PlayerPrefs.SetInt("ScreenResolutionY",Screen.currentResolution.height);
+            Screen.SetResolution(PlayerPrefs.GetInt("ScreenResolutionX"),PlayerPrefs.GetInt("ScreenResolutionY"),true);
             
             Debug.Log("初始化完成");
         }
