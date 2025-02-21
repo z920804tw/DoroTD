@@ -7,21 +7,24 @@ public class EnemySetting : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("敵人設定")]
+    public EnemyInfoSO enemyInfoSO;
     public EnemyAttack enemyAttack;
     public bool canTrack;
     Vector3 lookVector;
     Vector3 turnPos;
 
     [Header("敵人AI相關設定")]
-    public NavMeshAgent nav;
     public LayerMask targetLayer;
     public float attackRange;
     public float attackDelay;
-    public float moveSpeed;
     public float attackDmg;
-    bool inAttackRange;
-    Transform target;
     float attackTime;
+    public float moveSpeed;
+    bool inAttackRange;
+    NavMeshAgent nav;
+    Transform target;
+
+    [SerializeField] EnemyHealth enemyHealth;
 
 
     [Header("敵人UI設定")]
@@ -31,9 +34,10 @@ public class EnemySetting : MonoBehaviour
     void Start()
     {
         target = GameObject.FindWithTag("Player").transform;
-        nav.speed = moveSpeed;
-        nav.stoppingDistance = attackRange;
-        nav.updateRotation = false;
+        enemyHealth = GetComponent<EnemyHealth>();
+        nav = GetComponent<NavMeshAgent>();
+
+        InitializationInfo();
     }
 
     // Update is called once per frame
@@ -85,7 +89,7 @@ public class EnemySetting : MonoBehaviour
         if (attackTime >= attackDelay)
         {
             attackTime = 0;
-            enemyAttack.AttackAction(this.gameObject,target.gameObject);
+            enemyAttack.AttackAction(this.gameObject, target.gameObject);
         }
     }
 
@@ -101,14 +105,27 @@ public class EnemySetting : MonoBehaviour
         if (angle > 0) //玩家在左邊
         {
             // enemyBody.transform.localScale = new Vector3(scale, scale, scale);
-            enemyBody.GetComponent<SpriteRenderer>().flipX=false;
+            enemyBody.GetComponent<SpriteRenderer>().flipX = false;
 
         }
         else        //玩家在右邊
         {
             // enemyBody.transform.localScale = new Vector3(-scale, scale, scale);
-            enemyBody.GetComponent<SpriteRenderer>().flipX=true;
+            enemyBody.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    void InitializationInfo()
+    {
+        attackRange = enemyInfoSO.attackRange;
+        attackDelay = enemyInfoSO.attackDelay;
+        attackDmg = enemyInfoSO.attackDmg;
+        moveSpeed = enemyInfoSO.moveSpeed;
+        enemyHealth.maxHp = enemyInfoSO.maxHp;
+
+        nav.speed = moveSpeed;
+        nav.stoppingDistance = attackRange;
+        nav.updateRotation = false;
     }
 
 

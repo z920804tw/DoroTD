@@ -413,16 +413,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c38a1107f926934d856c960a0cdc42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInfoSO: {fileID: 11400000, guid: 297e46b50231daa48a246cb21c9a934a, type: 2}
   enemyAttack: {fileID: 11400000, guid: 503e66fd5e530974fb696f38b5c91764, type: 2}
   canTrack: 1
-  nav: {fileID: 4177885780775264688}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
   attackRange: 2
   attackDelay: 1.2
-  moveSpeed: 3
   attackDmg: 2
+  moveSpeed: 3
   enemyBody: {fileID: 2910308631718941779}
   enemyHpBar: {fileID: 817579406571576959}
 --- !u!114 &6419230790470042775

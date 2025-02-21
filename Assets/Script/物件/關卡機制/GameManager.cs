@@ -16,22 +16,20 @@ public class GameManager : MonoBehaviour
     [Header("遊戲物件設定")]
     public GameStatus gameStatus;
     public SceneUIManager sceneUIManager;
+    public AudioManager audioManager;
     public GameObject startRoundObj;
     public GameObject boss;
     [SerializeField] List<GameObject> spawnPos;
-    [Header("音效設定")]
-    [SerializeField] AudioClip[] audioClips;
-    AudioSource audioSource;
+
 
     [Header("遊戲結束UI設定")]
     public GameOverUI gameOverUI;
     LevelInfo levelInfo;
 
-
     [Header("關卡參數設定")]
     public float increaseHp;
     [SerializeField] float portalSpawnTime;
-    [SerializeField] float transitionDuration;
+
     [Header("Debug")]
     [SerializeField] float roundTime;
     float timer;
@@ -48,9 +46,9 @@ public class GameManager : MonoBehaviour
         levelInfo = sceneUIManager.levelInfo;
         gameStatus = GameStatus.Break;
         enemyPortals = GameObject.FindGameObjectsWithTag("EnemyPortal");
-        audioSource = GetComponent<AudioSource>();
 
-        StartCoroutine(TransitionMusic(0, 0, 0.5f));
+
+        StartCoroutine(audioManager.TransitionMusic(0, 0, 0.5f));
     }
 
     // Update is called once per frame
@@ -83,7 +81,7 @@ public class GameManager : MonoBehaviour
             Invoke("SpawnBoss", 10f);
         }
         //切換音效
-        StartCoroutine(TransitionMusic(1, 0, 0.5f));
+        StartCoroutine(audioManager.TransitionMusic(1, 0, 0.5f));
 
         foreach (GameObject i in enemyPortals)
         {
@@ -99,7 +97,7 @@ public class GameManager : MonoBehaviour
         levelInfo.gameObject.SetActive(false);
         startRoundObj.SetActive(true);
         //切換音效
-        StartCoroutine(TransitionMusic(0, 0, 0.5f));
+        StartCoroutine(audioManager.TransitionMusic(0, 0, 0.5f));
 
         //增加血量
         foreach (GameObject i in enemyPortals)
@@ -108,7 +106,7 @@ public class GameManager : MonoBehaviour
             i.GetComponent<EnemySpawner>().increaseEnemyHp = increaseHp * currnetRound;
         }
         //判斷回合，設定每3回合會增加生成速度
-        if (currnetRound % 3 == 0 && portalSpawnTime > 2)
+        if (currnetRound % 4 == 0 && portalSpawnTime > 2)
         {
             portalSpawnTime--;
             foreach (GameObject i in enemyPortals)
@@ -165,33 +163,33 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator TransitionMusic(int i, float start, float end)
-    {
-        float timer = 0;
-        //前次音樂退場
-        if (audioSource.clip != audioClips[i])
-        {
-            while (timer < transitionDuration)
-            {
-                timer += Time.deltaTime;
-                float t = timer / transitionDuration;
-                audioSource.volume = Mathf.Lerp(end, start, t);
-                yield return null;
-            }
-            audioSource.clip = audioClips[i];
-            audioSource.Play();
-            Debug.Log("切換完成");
-        }
+    // IEnumerator TransitionMusic(int i, float start, float end)
+    // {
+    //     float timer = 0;
+    //     //前次音樂退場
+    //     if (audioSource.clip != audioClips[i])
+    //     {
+    //         while (timer < transitionDuration)
+    //         {
+    //             timer += Time.deltaTime;
+    //             float t = timer / transitionDuration;
+    //             audioSource.volume = Mathf.Lerp(end, start, t);
+    //             yield return null;
+    //         }
+    //         audioSource.clip = audioClips[i];
+    //         audioSource.Play();
+    //         Debug.Log("切換完成");
+    //     }
 
-        //目標音樂的進場
-        timer = 0;
-        while (timer < transitionDuration)
-        {
-            timer += Time.deltaTime;
-            float t = timer / transitionDuration;
-            audioSource.volume = Mathf.Lerp(start, end, t);
-            yield return null;
-        }
+    //     //目標音樂的進場
+    //     timer = 0;
+    //     while (timer < transitionDuration)
+    //     {
+    //         timer += Time.deltaTime;
+    //         float t = timer / transitionDuration;
+    //         audioSource.volume = Mathf.Lerp(start, end, t);
+    //         yield return null;
+    //     }
 
-    }
+    // }
 }
