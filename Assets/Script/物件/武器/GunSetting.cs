@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -176,7 +177,6 @@ public class GunSetting : MonoBehaviour
                 fireTime = 0;
                 fireEvent.Invoke();
                 currentAmmo--;
-                Debug.Log("開槍");
             }
         }
         else
@@ -187,7 +187,7 @@ public class GunSetting : MonoBehaviour
                 fireTime = 0;
                 audioSource.PlayOneShot(emptyClip);
             }
-            Debug.Log("沒有彈藥");
+            ReloadHint();
         }
     }
     //一般武器
@@ -199,12 +199,11 @@ public class GunSetting : MonoBehaviour
             {
                 fireEvent.Invoke();
                 currentAmmo--;
-                Debug.Log("開槍");
             }
             else
             {
                 audioSource.PlayOneShot(emptyClip);
-                Debug.Log("沒有彈藥");
+                ReloadHint();
             }
         }
         else
@@ -230,8 +229,13 @@ public class GunSetting : MonoBehaviour
         else
         {
             audioSource.PlayOneShot(emptyClip);
-            Debug.Log("沒有子彈");
+            ReloadHint();
         }
+    }
+
+    void ReloadHint()
+    {
+        GameObject.FindWithTag("Hint").GetComponentInChildren<TMP_Text>().text = $"按下R鍵重新裝填彈藥";
     }
 
     void FirePress(InputAction.CallbackContext context) //開火按鍵被按下時(只會有一次偵測)
@@ -264,6 +268,7 @@ public class GunSetting : MonoBehaviour
     {
         if (!isReload && currentAmmo != maxAmmo)
         {
+            GameObject.FindWithTag("Hint").GetComponentInChildren<TMP_Text>().text = string.Empty;  
             isReload = true;
             autoFire = false;
             StartCoroutine(ReloadAmmo());

@@ -16,6 +16,6 @@ MonoBehaviour:
   enemyImg: {fileID: 21300000, guid: 91aa1c659f66a9b4d84cc7088cf4922e, type: 3}
   attackRange: 2
   attackDelay: 1.2
-  attackDmg: 5
+  attackDmg: 3
   moveSpeed: 3
   maxHp: 20

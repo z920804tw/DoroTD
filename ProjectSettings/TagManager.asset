@@ -8,6 +8,7 @@ TagManager:
   - SceneUI
   - FxTemporaire
   - EnemyPortal
+  - Hint
   layers:
   - Default
   - TransparentFX

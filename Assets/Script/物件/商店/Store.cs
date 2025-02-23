@@ -23,7 +23,7 @@ public class Store : MonoBehaviour
             {
                 storeUI.SetActive(true);
                 canBuy = false;
-                hintUI.SetActive(false);
+                hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
             }
         }
     }
@@ -31,14 +31,12 @@ public class Store : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            hintUI.SetActive(true);
             hintUI.GetComponentInChildren<TMP_Text>().text = $"按下F鍵開啟商店";
             canBuy = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        hintUI.SetActive(false);
         hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
         canBuy = false;
     }

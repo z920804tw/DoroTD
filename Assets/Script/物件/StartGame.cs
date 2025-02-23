@@ -18,8 +18,9 @@ public class StartGame : MonoBehaviour
             {
                 GameObject.Find("GameManager").GetComponent<GameManager>().StartRound();
                 canStart = false;
-                hintUI.SetActive(false);
+                hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
                 transform.parent.gameObject.SetActive(false);
+
             }
         }
     }
@@ -27,14 +28,12 @@ public class StartGame : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            hintUI.SetActive(true);
             hintUI.GetComponentInChildren<TMP_Text>().text = $"按下F鍵開始遊戲";
             canStart = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        hintUI.SetActive(false);
         hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
         canStart = false;
     }

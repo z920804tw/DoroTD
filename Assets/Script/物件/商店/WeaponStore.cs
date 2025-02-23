@@ -27,9 +27,8 @@ public class WeaponStore : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 storeUI.SetActive(true);
-                Debug.Log("打開商店UI");
-                canBuy=false;
-                hintUI.SetActive(false);
+                canBuy = false;
+                hintUI.GetComponentInChildren<TMP_Text>().text = string.Empty;
             }
         }
     }
